@@ -35,10 +35,13 @@
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "graphql": "^15.4.0",
+    "ioredis": "^4.19.2",
     "nodemailer": "^6.4.16",
     "pg": "^8.5.1",
     "redis": "^3.0.2",
-    "type-graphql": "^1.1.1"
+    "type-graphql": "^1.1.1",
+    "typeorm": "^0.2.29",
+    "uuidv4": "^6.2.5"
   },
   "mikro-orm": {
     "useTsNode": true,

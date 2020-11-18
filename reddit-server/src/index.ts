@@ -11,19 +11,27 @@ import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
 import { UserResolver } from "./resolvers/user";
 import cors from "cors";
-
-import redis from "redis";
+import Redis from "ioredis";
 import session from "express-session";
 import connectRedis from "connect-redis";
 import { sendEmail } from "./utils/sendEmail";
 import { User } from "./entities/User";
+import { createConnection } from "typeorm";
 
 const main = async () => {
-	const orm = await MikroORM.init(microConfig);
-	await orm.getMigrator().up();
+	const conn = await createConnection({
+		type: "postgres",
+		database: "reddit",
+		username: "postgres",
+		password: "postgres",
+		logging: true,
+		synchronize: true,
+		entities: [Post, User],
+	});
+
 	const app = express();
 	const RedisStore = connectRedis(session);
-	const redisClient = redis.createClient();
+	const redis = new Redis();
 
 	app.use(
 		cors({
@@ -31,10 +39,11 @@ const main = async () => {
 			credentials: true,
 		})
 	);
+
 	app.use(
 		session({
 			name: COOKIE_NAME,
-			store: new RedisStore({ client: redisClient, disableTouch: true }),
+			store: new RedisStore({ client: redis, disableTouch: true }),
 			cookie: {
 				maxAge: 1000 * 60 * 60 * 24 * 365 * 10, // 10 years
 				httpOnly: true,
@@ -55,9 +64,9 @@ const main = async () => {
 			validate: false,
 		}),
 		context: ({ req, res }) => ({
-			em: orm.em,
 			req,
 			res,
+			redis,
 		}),
 	});
 
