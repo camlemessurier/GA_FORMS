@@ -3,8 +3,9 @@ import {
 	CreateDateColumn,
 	UpdateDateColumn,
 	Column,
+	BaseEntity,
+	Entity,
 } from "typeorm";
-import { BaseEntity, Entity } from "@mikro-orm/core";
 import { Field, Int, ObjectType } from "type-graphql";
 
 @ObjectType()
