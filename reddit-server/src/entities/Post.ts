@@ -4,12 +4,12 @@ import {
 	UpdateDateColumn,
 	Column,
 } from "typeorm";
-import { Entity } from "@mikro-orm/core";
+import { BaseEntity, Entity } from "@mikro-orm/core";
 import { Field, Int, ObjectType } from "type-graphql";
 
 @ObjectType()
 @Entity()
-export class Post {
+export class Post extends BaseEntity {
 	@Field(() => Int)
 	@PrimaryGeneratedColumn()
 	id!: number;

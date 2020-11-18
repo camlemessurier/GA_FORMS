@@ -5,11 +5,12 @@ import {
 	Column,
 	CreateDateColumn,
 	UpdateDateColumn,
+	BaseEntity,
 } from "typeorm";
 
 @ObjectType()
 @Entity()
-export class User {
+export class User extends BaseEntity {
 	@Field()
 	@PrimaryGeneratedColumn()
 	id!: number;
