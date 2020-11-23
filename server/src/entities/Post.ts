@@ -7,13 +7,13 @@ import {
 	Entity,
 	ManyToOne,
 } from "typeorm";
-import { Field, Int, ObjectType } from "type-graphql";
+import { Field, ObjectType } from "type-graphql";
 import { User } from "./User";
 
 @ObjectType()
 @Entity()
 export class Post extends BaseEntity {
-	@Field(() => Int)
+	@Field()
 	@PrimaryGeneratedColumn()
 	id!: number;
 
@@ -23,7 +23,7 @@ export class Post extends BaseEntity {
 
 	@Field()
 	@Column()
-	text!: string;
+	body!: string;
 
 	@Field()
 	@Column({ type: "int", default: 0 })
@@ -33,6 +33,7 @@ export class Post extends BaseEntity {
 	@Column()
 	creatorId: number;
 
+	@Field()
 	@ManyToOne(() => User, (user) => user.posts)
 	creator: User;
 
