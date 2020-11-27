@@ -250,10 +250,6 @@ export type PostsQuery = (
     & { posts: Array<(
       { __typename?: 'Post' }
       & Pick<Post, '[object Object]' | '[object Object]' | '[object Object]' | '[object Object]' | '[object Object]'>
-      & { creator: (
-        { __typename?: 'User' }
-        & Pick<User, '[object Object]' | '[object Object]' | '[object Object]'>
-      ) }
     )> }
   ) }
 );
@@ -370,11 +366,6 @@ export const PostsDocument = gql`
       updatedAt
       title
       textSnippet
-      creator {
-        id
-        username
-        email
-      }
     }
   }
 }
