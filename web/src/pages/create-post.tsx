@@ -20,7 +20,7 @@ const CreatePost: React.FC<{}> = ({}) => {
 	return (
 		<Layout variant="small">
 			<Formik
-				initialValues={{ title: "", body: "" }}
+				initialValues={{ title: "", text: "" }}
 				onSubmit={async (values) => {
 					const { error } = await createPost({ input: values });
 					console.log(error);
@@ -36,8 +36,8 @@ const CreatePost: React.FC<{}> = ({}) => {
 							<Box mt={4}>
 								<InputField
 									textarea
-									name="body"
-									label="body"
+									name="text"
+									label="text"
 									placeholder="text..."
 								/>
 							</Box>

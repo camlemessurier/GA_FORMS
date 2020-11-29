@@ -41,7 +41,7 @@ export type Post = {
   __typename?: 'Post';
   id: Scalars['Float'];
   title: Scalars['String'];
-  body: Scalars['String'];
+  text: Scalars['String'];
   points: Scalars['Float'];
   creatorId: Scalars['Float'];
   creator: User;
@@ -61,6 +61,7 @@ export type User = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  vote: Scalars['Boolean'];
   createPost: Post;
   updatePost?: Maybe<Post>;
   deletePost: Scalars['Boolean'];
@@ -69,6 +70,12 @@ export type Mutation = {
   register: UserResponse;
   login: UserResponse;
   logout: Scalars['Boolean'];
+};
+
+
+export type MutationVoteArgs = {
+  value: Scalars['Int'];
+  postId: Scalars['Int'];
 };
 
 
@@ -111,7 +118,7 @@ export type MutationLoginArgs = {
 
 export type PostInput = {
   title: Scalars['String'];
-  body: Scalars['String'];
+  text: Scalars['String'];
 };
 
 export type UserResponse = {
@@ -250,6 +257,10 @@ export type PostsQuery = (
     & { posts: Array<(
       { __typename?: 'Post' }
       & Pick<Post, '[object Object]' | '[object Object]' | '[object Object]' | '[object Object]' | '[object Object]'>
+      & { creator: (
+        { __typename?: 'User' }
+        & Pick<User, '[object Object]' | '[object Object]'>
+      ) }
     )> }
   ) }
 );
@@ -295,7 +306,7 @@ export const CreatePostDocument = gql`
     createdAt
     updatedAt
     title
-    body
+    text
     points
     creatorId
   }
@@ -358,7 +369,7 @@ export function useMeQuery(options: Omit<Urql.UseQueryArgs<MeQueryVariables>, 'q
 };
 export const PostsDocument = gql`
     query Posts($limit: Int!, $cursor: String) {
-  posts(cursor: $cursor, limit: $limit) {
+  posts(limit: $limit, cursor: $cursor) {
     hasMore
     posts {
       id
@@ -366,6 +377,10 @@ export const PostsDocument = gql`
       updatedAt
       title
       textSnippet
+      creator {
+        id
+        username
+      }
     }
   }
 }

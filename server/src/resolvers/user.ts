@@ -1,20 +1,20 @@
-import { validateRegister } from "./../utils/validateRegister";
-import { COOKIE_NAME, FORGET_PASSWORD_PREFIX } from "./../constants";
-import { MyContext } from "./../types";
 import {
-	Arg,
-	Ctx,
-	Field,
-	FieldResolver,
+	Resolver,
 	Mutation,
+	Arg,
+	Field,
+	Ctx,
 	ObjectType,
 	Query,
-	Resolver,
+	FieldResolver,
 	Root,
 } from "type-graphql";
+import { MyContext } from "../types";
 import { User } from "../entities/User";
 import argon2 from "argon2";
+import { COOKIE_NAME, FORGET_PASSWORD_PREFIX } from "../constants";
 import { UsernamePasswordInput } from "./UsernamePasswordInput";
+import { validateRegister } from "../utils/validateRegister";
 import { sendEmail } from "../utils/sendEmail";
 import { v4 } from "uuid";
 import { getConnection } from "typeorm";
@@ -40,10 +40,11 @@ class UserResponse {
 export class UserResolver {
 	@FieldResolver(() => String)
 	email(@Root() user: User, @Ctx() { req }: MyContext) {
+		// this is the current user and its ok to show them their own email
 		if (req.session.userId === user.id) {
 			return user.email;
 		}
-
+		// current user wants to see someone elses email
 		return "";
 	}
 
@@ -58,7 +59,7 @@ export class UserResolver {
 				errors: [
 					{
 						field: "newPassword",
-						message: "length must be greater",
+						message: "length must be greater than 2",
 					},
 				],
 			};
@@ -66,10 +67,14 @@ export class UserResolver {
 
 		const key = FORGET_PASSWORD_PREFIX + token;
 		const userId = await redis.get(key);
-
 		if (!userId) {
 			return {
-				errors: [{ field: "token", message: "Something went wrong" }],
+				errors: [
+					{
+						field: "token",
+						message: "token expired",
+					},
+				],
 			};
 		}
 
@@ -78,15 +83,25 @@ export class UserResolver {
 
 		if (!user) {
 			return {
-				errors: [{ field: "token", message: "User no longer exists" }],
+				errors: [
+					{
+						field: "token",
+						message: "user no longer exists",
+					},
+				],
 			};
 		}
 
-		user.password = await argon2.hash(newPassword);
-
-		User.update({ id: userIdNum }, { password: user.password });
+		await User.update(
+			{ id: userIdNum },
+			{
+				password: await argon2.hash(newPassword),
+			}
+		);
 
 		await redis.del(key);
+
+		// log in user after change password
 		req.session.userId = user.id;
 
 		return { user };
@@ -99,10 +114,12 @@ export class UserResolver {
 	) {
 		const user = await User.findOne({ where: { email } });
 		if (!user) {
+			// the email is not in the db
 			return true;
 		}
 
 		const token = v4();
+
 		await redis.set(
 			FORGET_PASSWORD_PREFIX + token,
 			user.id,
@@ -110,15 +127,17 @@ export class UserResolver {
 			1000 * 60 * 60 * 24 * 3
 		); // 3 days
 
-		sendEmail(
+		await sendEmail(
 			email,
-			`<a href="http://localhost:3000/change-password/${token}">Reset password</a>`
+			`<a href="http://localhost:3000/change-password/${token}">reset password</a>`
 		);
+
 		return true;
 	}
 
 	@Query(() => User, { nullable: true })
 	me(@Ctx() { req }: MyContext) {
+		// you are not logged in
 		if (!req.session.userId) {
 			return null;
 		}
@@ -126,12 +145,11 @@ export class UserResolver {
 		return User.findOne(req.session.userId);
 	}
 
-	// Register
 	@Mutation(() => UserResponse)
 	async register(
 		@Arg("options") options: UsernamePasswordInput,
 		@Ctx() { req }: MyContext
-	) {
+	): Promise<UserResponse> {
 		const errors = validateRegister(options);
 		if (errors) {
 			return { errors };
@@ -140,35 +158,42 @@ export class UserResolver {
 		const hashedPassword = await argon2.hash(options.password);
 		let user;
 		try {
+			// User.create({}).save()
 			const result = await getConnection()
 				.createQueryBuilder()
 				.insert()
 				.into(User)
 				.values({
 					username: options.username,
-					password: hashedPassword,
 					email: options.email,
+					password: hashedPassword,
 				})
 				.returning("*")
 				.execute();
 			user = result.raw[0];
 		} catch (err) {
-			return {
-				errors: [
-					{
-						field: "username",
-						message: "username has already been taken",
-					},
-				],
-			};
+			//|| err.detail.includes("already exists")) {
+			// duplicate username error
+			if (err.code === "23505") {
+				return {
+					errors: [
+						{
+							field: "username",
+							message: "username already taken",
+						},
+					],
+				};
+			}
 		}
 
+		// store user id session
+		// this will set a cookie on the user
+		// keep them logged in
 		req.session.userId = user.id;
 
 		return { user };
 	}
 
-	// Login
 	@Mutation(() => UserResponse)
 	async login(
 		@Arg("usernameOrEmail") usernameOrEmail: string,
@@ -180,7 +205,6 @@ export class UserResolver {
 				? { where: { email: usernameOrEmail } }
 				: { where: { username: usernameOrEmail } }
 		);
-
 		if (!user) {
 			return {
 				errors: [
@@ -197,7 +221,7 @@ export class UserResolver {
 				errors: [
 					{
 						field: "password",
-						message: "password is incorrect",
+						message: "incorrect password",
 					},
 				],
 			};

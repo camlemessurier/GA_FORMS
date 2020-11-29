@@ -1,12 +1,12 @@
-import { OneToMany } from "@mikro-orm/core";
-import { Field, Int, ObjectType } from "type-graphql";
+import { ObjectType, Field } from "type-graphql";
 import {
 	Entity,
 	PrimaryGeneratedColumn,
-	Column,
 	CreateDateColumn,
 	UpdateDateColumn,
+	Column,
 	BaseEntity,
+	OneToMany,
 } from "typeorm";
 import { Post } from "./Post";
 import { Updoot } from "./Updoot";
@@ -37,9 +37,9 @@ export class User extends BaseEntity {
 
 	@Field(() => String)
 	@CreateDateColumn()
-	createdAt = Date();
+	createdAt: Date;
 
 	@Field(() => String)
 	@UpdateDateColumn()
-	updatedAt = Date();
+	updatedAt: Date;
 }
