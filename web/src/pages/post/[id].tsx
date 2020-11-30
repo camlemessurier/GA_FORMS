@@ -3,21 +3,15 @@ import { initDataState } from "@urql/exchange-graphcache/dist/types/store";
 import { withUrqlClient } from "next-urql";
 import { useRouter } from "next/router";
 import React from "react";
+import { EditDeletePostButtons } from "../../components/EditDeletePostButtons";
 import { Layout } from "../../components/Layout";
-import { usePostQuery } from "../../generated/graphql";
+import { useMeQuery, usePostQuery } from "../../generated/graphql";
 import { createUrqlClient } from "../../utils/createUrqlClient";
+import { useGetPostFromUrl } from "../../utils/useGetPostFromUrl";
 
 const Post = ({}) => {
-	const router = useRouter();
-	const intId =
-		typeof router.query.id === "string" ? parseInt(router.query.id) : -1;
-	const [{ data, fetching }] = usePostQuery({
-		pause: intId === -1,
-		variables: {
-			id: intId,
-		},
-	});
-	router.query.id;
+	const [{ data, fetching }] = useGetPostFromUrl();
+	const [{ data: meData }] = useMeQuery();
 
 	if (fetching) {
 		return (
@@ -38,7 +32,10 @@ const Post = ({}) => {
 	return (
 		<Layout>
 			<Heading mb={4}>{data?.post?.title}</Heading>
-			{data?.post?.text}
+			<Box mb={8}>{data?.post?.text}</Box>
+			{meData?.me?.id !== data.post.creator.id ? null : (
+				<EditDeletePostButtons id={data.post.id} />
+			)}
 		</Layout>
 	);
 };

@@ -1,3 +1,4 @@
+import { createUpdootLoader } from "./utils/createUpdootLoader";
 import { Updoot } from "./entities/Updoot";
 import { ApolloServer } from "apollo-server-express";
 import connectRedis from "connect-redis";
@@ -15,19 +16,22 @@ import { HelloResolver } from "./resolvers/hello";
 import { PostResolver } from "./resolvers/post";
 import { UserResolver } from "./resolvers/user";
 import path from "path";
+import { createUserLoader } from "./utils/createUserLoader";
+require("dotenv").config();
 
 const main = async () => {
+	console.log(process.env.DB_USERNAME);
 	const conn = await createConnection({
 		type: "postgres",
-		database: "reddit",
-		username: "camlemessurier",
-		password: "postgres",
+		username: process.env.DB_USERNAME,
+		password: process.env.DB_PASSWORD,
+		database: process.env.DB_NAME,
 		logging: true,
 		synchronize: true,
 		migrations: [path.join(__dirname, "./migrations/*")],
 		entities: [Post, User, Updoot],
 	});
-	// await conn.runMigrations();
+	await conn.runMigrations();
 
 	// await Post.delete({});
 	// re\run
@@ -37,7 +41,7 @@ const main = async () => {
 
 	app.use(
 		cors({
-			origin: "http://localhost:3000",
+			origin: process.env.CORS_ORIGIN,
 			credentials: true,
 		})
 	);
@@ -53,7 +57,7 @@ const main = async () => {
 				sameSite: "lax",
 			},
 			saveUninitialized: false,
-			secret: "asdfasdgjklasdfhjk",
+			secret: process.env.SESSION_SECRET,
 			resave: false,
 		})
 	);
@@ -69,6 +73,8 @@ const main = async () => {
 			req,
 			res,
 			redis,
+			userLoader: createUserLoader(),
+			updootLoader: createUpdootLoader(),
 		}),
 	});
 

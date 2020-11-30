@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "watch": "tsc -w",
+    "build": "tsc",
     "dev": "nodemon dist/index.js",
     "start": "node dist/index.js"
   },
@@ -27,6 +28,9 @@
     "apollo-server-express": "^2.19.0",
     "argon2": "^0.27.0",
     "connect-redis": "^5.0.0",
+    "dataloader": "^2.0.0",
+    "dotenv": "^8.2.0",
+    "dotenv-safe": "^8.2.0",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "graphql": "^15.4.0",
