@@ -1,4 +1,4 @@
-import { ObjectType, Field } from "type-graphql";
+import { ObjectType, Field, Int } from "type-graphql";
 import {
 	Entity,
 	Column,
@@ -15,23 +15,26 @@ import { Updoot } from "./Updoot";
 @ObjectType()
 @Entity()
 export class Post extends BaseEntity {
-	@Field()
+	@Field(() => Int)
 	@PrimaryGeneratedColumn()
 	id!: number;
 
-	@Field()
+	@Field(() => String)
 	@Column()
 	title!: string;
 
-	@Field()
+	@Field(() => String)
 	@Column()
 	text!: string;
 
-	@Field()
+	@Field(() => Int)
 	@Column({ type: "int", default: 0 })
 	points!: number;
 
-	@Field()
+	@Field(() => Int, { nullable: true })
+	voteStatus: number | null;
+
+	@Field(() => Int)
 	@Column()
 	creatorId: number;
 

@@ -1,4 +1,4 @@
-import { ObjectType, Field } from "type-graphql";
+import { ObjectType, Field, Int } from "type-graphql";
 import {
 	Entity,
 	PrimaryGeneratedColumn,
@@ -14,15 +14,15 @@ import { Updoot } from "./Updoot";
 @ObjectType()
 @Entity()
 export class User extends BaseEntity {
-	@Field()
+	@Field(() => Int)
 	@PrimaryGeneratedColumn()
 	id!: number;
 
-	@Field()
+	@Field(() => String)
 	@Column({ unique: true })
 	username!: string;
 
-	@Field()
+	@Field(() => String)
 	@Column({ unique: true })
 	email!: string;
 
