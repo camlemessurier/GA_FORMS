@@ -151,22 +151,6 @@ export class PostResolver {
 			replacements
 		);
 
-		// const qb = getConnection()
-		//   .getRepository(Post)
-		//   .createQueryBuilder("p")
-		//   .innerJoinAndSelect("p.creator", "u", 'u.id = p."creatorId"')
-		//   .orderBy('p."createdAt"', "DESC")
-		//   .take(reaLimitPlusOne);
-
-		// if (cursor) {
-		//   qb.where('p."createdAt" < :cursor', {
-		//     cursor: new Date(parseInt(cursor)),
-		//   });
-		// }
-
-		// const posts = await qb.getMany();
-		// console.log("posts: ", posts);
-
 		return {
 			posts: posts.slice(0, realLimit),
 			hasMore: posts.length === reaLimitPlusOne,

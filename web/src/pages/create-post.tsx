@@ -18,43 +18,9 @@ const CreatePost: React.FC<{}> = ({}) => {
 	const router = useRouter();
 	useIsAuth();
 	return (
-		<Layout variant="small">
-			<Formik
-				initialValues={{ title: "", text: "" }}
-				onSubmit={async (values) => {
-					const { error } = await createPost({ input: values });
-					console.log(error);
-					if (!error) {
-						router.push("/");
-					}
-				}}
-			>
-				{({ isSubmitting }) => (
-					<>
-						<Form>
-							<InputField name="title" label="title" placeholder="title" />
-							<Box mt={4}>
-								<InputField
-									textarea
-									name="text"
-									label="text"
-									placeholder="text..."
-								/>
-							</Box>
-
-							<Button
-								mt={4}
-								type="submit"
-								isLoading={isSubmitting}
-								colorScheme="teal"
-							>
-								Post
-							</Button>
-						</Form>
-					</>
-				)}
-			</Formik>
-		</Layout>
+		
+		
+		
 	);
 };
 

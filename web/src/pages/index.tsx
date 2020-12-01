@@ -1,32 +1,12 @@
+import { Box, Button, Flex, Heading, Link, Stack, Text } from "@chakra-ui/core";
 import { withUrqlClient } from "next-urql";
-import { createUrqlClient } from "../utils/createUrqlClient";
-import {
-	useDeletePostMutation,
-	useMeQuery,
-	usePostsQuery,
-} from "../generated/graphql";
-import { Layout } from "../components/Layout";
-import {
-	Link,
-	Stack,
-	Box,
-	Heading,
-	Text,
-	Flex,
-	Button,
-	Icon,
-	IconButton,
-} from "@chakra-ui/core";
 import NextLink from "next/link";
 import React, { useState } from "react";
-import {
-	ChevronDownIcon,
-	ChevronUpIcon,
-	DeleteIcon,
-	EditIcon,
-} from "@chakra-ui/icons";
-import { UpdootSection } from "../components/UpdootSection";
 import { EditDeletePostButtons } from "../components/EditDeletePostButtons";
+import { Layout } from "../components/Layout";
+import { UpdootSection } from "../components/UpdootSection";
+import { useMeQuery, usePostsQuery } from "../generated/graphql";
+import { createUrqlClient } from "../utils/createUrqlClient";
 
 const Index = () => {
 	const [variables, setVariables] = useState({
