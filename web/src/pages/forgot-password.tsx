@@ -10,14 +10,14 @@ import { toErrorMap } from "../utils/toErrorMap";
 import login from "./login";
 
 const ForgotPassword: React.FC<{}> = ({}) => {
-	const [, forgotPassword] = useForgotPasswordMutation();
+	const [forgotPassword] = useForgotPasswordMutation();
 	const [completed, setCompleted] = useState(false);
 	return (
 		<Wrapper variant="small">
 			<Formik
 				initialValues={{ email: "" }}
 				onSubmit={async (values, { setErrors }) => {
-					await forgotPassword(values);
+					await forgotPassword({ variables: values });
 					setCompleted(true);
 				}}
 			>
@@ -51,4 +51,4 @@ const ForgotPassword: React.FC<{}> = ({}) => {
 	);
 };
 
-export default withUrqlClient(createUrqlClient)(ForgotPassword);
+export default ForgotPassword;

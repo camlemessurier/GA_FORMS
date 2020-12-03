@@ -1,25 +1,25 @@
 import {
-	Resolver,
-	Query,
 	Arg,
-	Mutation,
-	InputType,
-	Field,
 	Ctx,
-	UseMiddleware,
-	Int,
+	Field,
 	FieldResolver,
-	Root,
+	InputType,
+	Int,
+	Mutation,
 	ObjectType,
-	Info,
+	Query,
+	Resolver,
+	Root,
+	UseMiddleware,
 } from "type-graphql";
-import { Post } from "../entities/Post";
-import { MyContext } from "../types";
-import { isAuth } from "../middleware/isAuth";
 import { getConnection } from "typeorm";
+import { Post } from "../entities/Post";
 import { Updoot } from "../entities/Updoot";
 import { User } from "../entities/User";
+import { isAuth } from "../middleware/isAuth";
+import { MyContext } from "../types";
 
+// for mutations
 @InputType()
 class PostInput {
 	@Field()
@@ -28,6 +28,7 @@ class PostInput {
 	text: string;
 }
 
+// for queries
 @ObjectType()
 class PaginatedPosts {
 	@Field(() => [Post])

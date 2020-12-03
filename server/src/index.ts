@@ -31,10 +31,7 @@ const main = async () => {
 		migrations: [path.join(__dirname, "./migrations/*")],
 		entities: [Post, User, Updoot],
 	});
-	//rawait conn.runMigrations();
 
-	// await Post.delete({});
-	// re\run
 	const app = express();
 	const RedisStore = connectRedis(session);
 	const redis = new Redis();

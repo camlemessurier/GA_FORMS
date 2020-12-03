@@ -15,15 +15,15 @@ import { Updoot } from "./Updoot";
 @ObjectType()
 @Entity()
 export class Post extends BaseEntity {
-	@Field(() => Int)
+	@Field((type) => Int)
 	@PrimaryGeneratedColumn()
 	id!: number;
 
-	@Field(() => String)
+	@Field((type) => String)
 	@Column()
 	title!: string;
 
-	@Field(() => String)
+	@Field((type) => String)
 	@Column()
 	text!: string;
 
