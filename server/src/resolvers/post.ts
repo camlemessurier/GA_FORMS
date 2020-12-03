@@ -19,7 +19,6 @@ import { User } from "../entities/User";
 import { isAuth } from "../middleware/isAuth";
 import { MyContext } from "../types";
 
-// for mutations
 @InputType()
 class PostInput {
 	@Field()
@@ -28,7 +27,6 @@ class PostInput {
 	text: string;
 }
 
-// for queries
 @ObjectType()
 class PaginatedPosts {
 	@Field(() => [Post])
@@ -128,8 +126,7 @@ export class PostResolver {
 	@Query(() => PaginatedPosts)
 	async posts(
 		@Arg("limit", () => Int) limit: number,
-		@Arg("cursor", () => String, { nullable: true }) cursor: string | null,
-		@Ctx() { req }: MyContext
+		@Arg("cursor", () => String, { nullable: true }) cursor: string | null
 	): Promise<PaginatedPosts> {
 		// 20 -> 21
 		const realLimit = Math.min(50, limit);
@@ -151,6 +148,22 @@ export class PostResolver {
     `,
 			replacements
 		);
+
+		// const qb = getConnection()
+		//   .getRepository(Post)
+		//   .createQueryBuilder("p")
+		//   .innerJoinAndSelect("p.creator", "u", 'u.id = p."creatorId"')
+		//   .orderBy('p."createdAt"', "DESC")
+		//   .take(reaLimitPlusOne);
+
+		// if (cursor) {
+		//   qb.where('p."createdAt" < :cursor', {
+		//     cursor: new Date(parseInt(cursor)),
+		//   });
+		// }
+
+		// const posts = await qb.getMany();
+		// console.log("posts: ", posts);
 
 		return {
 			posts: posts.slice(0, realLimit),
@@ -203,6 +216,18 @@ export class PostResolver {
 		@Arg("id", () => Int) id: number,
 		@Ctx() { req }: MyContext
 	): Promise<boolean> {
+		// not cascade way
+		// const post = await Post.findOne(id);
+		// if (!post) {
+		//   return false;
+		// }
+		// if (post.creatorId !== req.session.userId) {
+		//   throw new Error("not authorized");
+		// }
+
+		// await Updoot.delete({ postId: id });
+		// await Post.delete({ id });
+
 		await Post.delete({ id, creatorId: req.session.userId });
 		return true;
 	}

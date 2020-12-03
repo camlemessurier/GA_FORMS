@@ -3,7 +3,7 @@ import NextLink from "next/link";
 import React from "react";
 import { EditDeletePostButtons } from "../components/EditDeletePostButtons";
 import { Layout } from "../components/Layout";
-import { UpdootSection } from "../components/UpdootSection";
+
 import { useMeQuery, usePostsQuery } from "../generated/graphql";
 
 const Index = () => {
@@ -46,7 +46,6 @@ const Index = () => {
 					{data!.posts.posts.map((p) =>
 						!p ? null : (
 							<Flex key={p.id} p={5} shadow="md">
-								<UpdootSection post={p} />
 								<Box flex={1}>
 									<NextLink href="/post/[id]" as={`/post/${p.id}`}>
 										<Link>

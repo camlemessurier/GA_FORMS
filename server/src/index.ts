@@ -20,7 +20,6 @@ import { createUserLoader } from "./utils/createUserLoader";
 require("dotenv").config();
 
 const main = async () => {
-	console.log(process.env.DB_USERNAME);
 	const conn = await createConnection({
 		type: "postgres",
 		username: process.env.DB_USERNAME,
@@ -81,7 +80,7 @@ const main = async () => {
 	});
 
 	app.listen(4000, () => {
-		console.log("Server on 4000");
+		console.log("Server on localhost:4000");
 	});
 };
 
