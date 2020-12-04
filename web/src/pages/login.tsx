@@ -1,26 +1,12 @@
 import React from "react";
 import { Form, Formik } from "formik";
-import {
-	FormControl,
-	FormLabel,
-	Input,
-	FormErrorMessage,
-	Box,
-	Button,
-	Link,
-	Flex,
-} from "@chakra-ui/core";
+import { Box, Button, Link, Flex } from "@chakra-ui/core";
 import { Wrapper } from "../components/Wrapper";
 import { InputField } from "../components/InputField";
-import { useMutation } from "urql";
-import { useLoginMutation, useRegisterMutation } from "../generated/graphql";
+import { MeDocument, MeQuery, useLoginMutation } from "../generated/graphql";
 import { toErrorMap } from "../utils/toErrorMap";
 import { useRouter } from "next/router";
-import { withUrqlClient } from "next-urql";
-import { createUrqlClient } from "../utils/createUrqlClient";
 import NextLink from "next/link";
-
-interface registerProps {}
 
 const Login: React.FC<{}> = ({}) => {
 	const router = useRouter();
@@ -31,7 +17,19 @@ const Login: React.FC<{}> = ({}) => {
 			<Formik
 				initialValues={{ usernameOrEmail: "", password: "" }}
 				onSubmit={async (values, { setErrors }) => {
-					const response = await login({ variables: values });
+					const response = await login({
+						variables: values,
+						update: (cache, { data }) => {
+							cache.writeQuery<MeQuery>({
+								query: MeDocument,
+								data: {
+									__typename: "Query",
+									me: data?.login.user,
+								},
+							});
+							cache.evict({ fieldName: "posts:{}" });
+						},
+					});
 					if (response.data?.login.errors) {
 						setErrors(toErrorMap(response.data.login.errors));
 					} else if (response.data?.login.user) {

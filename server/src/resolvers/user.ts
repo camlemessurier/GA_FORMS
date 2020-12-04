@@ -12,7 +12,6 @@ import {
 import { MyContext } from "../types";
 import { User } from "../entities/User";
 import argon2 from "argon2";
-import { COOKIE_NAME, FORGET_PASSWORD_PREFIX } from "../constants";
 import { UsernamePasswordInput } from "./UsernamePasswordInput";
 import { validateRegister } from "../utils/validateRegister";
 import { sendEmail } from "../utils/sendEmail";
@@ -65,7 +64,7 @@ export class UserResolver {
 			};
 		}
 
-		const key = FORGET_PASSWORD_PREFIX + token;
+		const key = "forgotpassword" + token;
 		const userId = await redis.get(key);
 		if (!userId) {
 			return {
@@ -121,7 +120,7 @@ export class UserResolver {
 		const token = v4();
 
 		await redis.set(
-			FORGET_PASSWORD_PREFIX + token,
+			"forgotpassword" + token,
 			user.id,
 			"ex",
 			1000 * 60 * 60 * 24 * 3
@@ -237,8 +236,8 @@ export class UserResolver {
 	@Mutation(() => Boolean)
 	logout(@Ctx() { req, res }: MyContext) {
 		return new Promise((resolve) =>
-			req.session.destroy((err) => {
-				res.clearCookie(COOKIE_NAME);
+			req.session.destroy((err: any) => {
+				res.clearCookie("session");
 				if (err) {
 					console.log(err);
 					resolve(false);

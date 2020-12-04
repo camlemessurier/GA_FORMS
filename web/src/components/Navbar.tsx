@@ -55,7 +55,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
 			<Flex flex={1} margin="auto" align="center">
 				<NextLink href="/">
 					<Link color="white">
-						<Heading> LiReddit</Heading>
+						<Heading> Global Acoustics: Forms</Heading>
 					</Link>
 				</NextLink>
 				<Box ml={"auto"} color="white">

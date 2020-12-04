@@ -1,5 +1,3 @@
-import { createUpdootLoader } from "./utils/createUpdootLoader";
-import { Updoot } from "./entities/Updoot";
 import { ApolloServer } from "apollo-server-express";
 import connectRedis from "connect-redis";
 import cors from "cors";
@@ -9,10 +7,8 @@ import Redis from "ioredis";
 import "reflect-metadata";
 import { buildSchema } from "type-graphql";
 import { createConnection } from "typeorm";
-import { COOKIE_NAME, __prod__ } from "./constants";
 import { Post } from "./entities/Post";
 import { User } from "./entities/User";
-import { HelloResolver } from "./resolvers/hello";
 import { PostResolver } from "./resolvers/post";
 import { UserResolver } from "./resolvers/user";
 import path from "path";
@@ -28,7 +24,7 @@ const main = async () => {
 		logging: true,
 		synchronize: true,
 		migrations: [path.join(__dirname, "./migrations/*")],
-		entities: [Post, User, Updoot],
+		entities: [Post, User],
 	});
 
 	const app = express();
@@ -44,16 +40,16 @@ const main = async () => {
 
 	app.use(
 		session({
-			name: COOKIE_NAME,
+			name: "session",
 			store: new RedisStore({ client: redis, disableTouch: true }),
 			cookie: {
-				maxAge: 1000 * 60 * 60 * 24 * 365 * 10, // 10 years
+				maxAge: 1000 * 60 * 60 * 24 * 365 * 10,
 				httpOnly: true,
-				secure: __prod__, // cookie only works in https
+				secure: process.env.NODE_ENV === "production",
 				sameSite: "lax",
 			},
 			saveUninitialized: false,
-			secret: process.env.SESSION_SECRET,
+			secret: process.env.SESSION_SECRET as string,
 			resave: false,
 		})
 	);
@@ -62,7 +58,7 @@ const main = async () => {
 
 	const apolloServer = new ApolloServer({
 		schema: await buildSchema({
-			resolvers: [HelloResolver, PostResolver, UserResolver],
+			resolvers: [PostResolver, UserResolver],
 			validate: false,
 		}),
 		context: ({ req, res }) => ({
@@ -70,7 +66,6 @@ const main = async () => {
 			res,
 			redis,
 			userLoader: createUserLoader(),
-			updootLoader: createUpdootLoader(),
 		}),
 	});
 

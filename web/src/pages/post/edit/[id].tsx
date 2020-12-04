@@ -1,6 +1,5 @@
 import { Box, Button } from "@chakra-ui/core";
 import { Form, Formik } from "formik";
-import { withUrqlClient } from "next-urql";
 import { useRouter } from "next/router";
 import React from "react";
 import { InputField } from "../../../components/InputField";
@@ -9,7 +8,6 @@ import {
 	usePostQuery,
 	useUpdatePostMutation,
 } from "../../../generated/graphql";
-import { createUrqlClient } from "../../../utils/createUrqlClient";
 import { useGetIntId } from "../../../utils/useGetIntId";
 import { useIsAuth } from "../../../utils/useIsAuth";
 
@@ -23,7 +21,7 @@ const EditPost = ({}) => {
 			id: intId,
 		},
 	});
-	const [, updatePost] = useUpdatePostMutation();
+	const [updatePost] = useUpdatePostMutation();
 
 	if (loading) {
 		return (
@@ -56,7 +54,7 @@ const EditPost = ({}) => {
 							<InputField name="title" label="title" placeholder="title" />
 							<Box mt={4}>
 								<InputField
-									textarea
+									type="textarea"
 									name="text"
 									label="text"
 									placeholder="text..."

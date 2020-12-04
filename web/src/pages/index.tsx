@@ -15,8 +15,6 @@ const Index = () => {
 		notifyOnNetworkStatusChange: true,
 	});
 
-	const { data: meData } = useMeQuery();
-
 	if (!loading && !data) {
 		return (
 			<div>
@@ -56,9 +54,10 @@ const Index = () => {
 									<Flex align="center">
 										<Text mt={4}>{p.textSnippet}</Text>
 										<Box ml="auto">
-											{meData?.me?.id !== p.creator.id ? null : (
-												<EditDeletePostButtons id={p.id} />
-											)}
+											<EditDeletePostButtons
+												id={p.id}
+												creatorId={p.creator.id}
+											/>
 										</Box>
 									</Flex>
 								</Box>

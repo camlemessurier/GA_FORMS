@@ -3,6 +3,7 @@ import { Box, IconButton, Link } from "@chakra-ui/core";
 import NextLink from "next/link";
 import { useDeletePostMutation, useMeQuery } from "../generated/graphql";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { useRouter } from "next/router";
 
 interface EditDeletePostButtonsProps {
 	id: number;
@@ -13,6 +14,7 @@ export const EditDeletePostButtons: React.FC<EditDeletePostButtonsProps> = ({
 	id,
 	creatorId,
 }) => {
+	const router = useRouter();
 	const { data: meData } = useMeQuery();
 	const [deletePost] = useDeletePostMutation();
 
@@ -40,6 +42,7 @@ export const EditDeletePostButtons: React.FC<EditDeletePostButtonsProps> = ({
 							cache.evict({ id: "Post:" + id });
 						},
 					});
+					router.push("/");
 				}}
 			/>
 		</Box>
