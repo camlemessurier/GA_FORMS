@@ -24,5 +24,6 @@ mutation CreateIncidentReport($input: IncidentReportInput!) {
 		actionsTaken
 		actionDate
 		actionPerson
+		isReviewed
 	}
 }

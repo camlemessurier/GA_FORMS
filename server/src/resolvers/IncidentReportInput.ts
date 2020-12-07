@@ -71,4 +71,7 @@ export class IncidentReportInput {
 
 	@Field((type) => String)
 	actionPerson: string;
+
+	@Field((type) => String)
+	isReviewed: string;
 }

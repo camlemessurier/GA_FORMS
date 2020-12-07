@@ -216,6 +216,7 @@ export type IncidentReportInput = {
   actionsTaken: Scalars['String'];
   actionDate: Scalars['String'];
   actionPerson: Scalars['String'];
+  isReviewed: Scalars['String'];
 };
 
 export type PostInput = {
@@ -312,7 +313,7 @@ export type CreateIncidentReportMutation = (
   { __typename?: 'Mutation' }
   & { createIncidentReport: (
     { __typename?: 'IncidentReport' }
-    & Pick<IncidentReport, 'id' | 'createdAt' | 'updatedAt' | 'title' | 'incidentDatetime' | 'incidentLocation' | 'incidentDetails' | 'incidentWitnesses' | 'take5Completed' | 'SWMScompleted' | 'siteProceduresFollowed' | 'fatiguePlanCompleted' | 'injurySustained' | 'equipmentDamaged' | 'equipmentCompany' | 'equipmentItem' | 'damageDetails' | 'causalFactors' | 'recurrenceLiklihood' | 'outcomeSeverity' | 'resultingRisk' | 'actionsTaken' | 'actionDate' | 'actionPerson'>
+    & Pick<IncidentReport, 'id' | 'createdAt' | 'updatedAt' | 'title' | 'incidentDatetime' | 'incidentLocation' | 'incidentDetails' | 'incidentWitnesses' | 'take5Completed' | 'SWMScompleted' | 'siteProceduresFollowed' | 'fatiguePlanCompleted' | 'injurySustained' | 'equipmentDamaged' | 'equipmentCompany' | 'equipmentItem' | 'damageDetails' | 'causalFactors' | 'recurrenceLiklihood' | 'outcomeSeverity' | 'resultingRisk' | 'actionsTaken' | 'actionDate' | 'actionPerson' | 'isReviewed'>
   ) }
 );
 
@@ -327,6 +328,16 @@ export type CreatePostMutation = (
     { __typename?: 'Post' }
     & Pick<Post, 'id' | 'createdAt' | 'updatedAt' | 'title' | 'text' | 'points' | 'creatorId'>
   ) }
+);
+
+export type DeleteIncidentReportMutationVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type DeleteIncidentReportMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'deleteIncidentReport'>
 );
 
 export type DeletePostMutationVariables = Exact<{
@@ -624,6 +635,7 @@ export const CreateIncidentReportDocument = gql`
     actionsTaken
     actionDate
     actionPerson
+    isReviewed
   }
 }
     `;
@@ -690,6 +702,36 @@ export function useCreatePostMutation(baseOptions?: Apollo.MutationHookOptions<C
 export type CreatePostMutationHookResult = ReturnType<typeof useCreatePostMutation>;
 export type CreatePostMutationResult = Apollo.MutationResult<CreatePostMutation>;
 export type CreatePostMutationOptions = Apollo.BaseMutationOptions<CreatePostMutation, CreatePostMutationVariables>;
+export const DeleteIncidentReportDocument = gql`
+    mutation DeleteIncidentReport($id: Int!) {
+  deleteIncidentReport(id: $id)
+}
+    `;
+export type DeleteIncidentReportMutationFn = Apollo.MutationFunction<DeleteIncidentReportMutation, DeleteIncidentReportMutationVariables>;
+
+/**
+ * __useDeleteIncidentReportMutation__
+ *
+ * To run a mutation, you first call `useDeleteIncidentReportMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteIncidentReportMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteIncidentReportMutation, { data, loading, error }] = useDeleteIncidentReportMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteIncidentReportMutation(baseOptions?: Apollo.MutationHookOptions<DeleteIncidentReportMutation, DeleteIncidentReportMutationVariables>) {
+        return Apollo.useMutation<DeleteIncidentReportMutation, DeleteIncidentReportMutationVariables>(DeleteIncidentReportDocument, baseOptions);
+      }
+export type DeleteIncidentReportMutationHookResult = ReturnType<typeof useDeleteIncidentReportMutation>;
+export type DeleteIncidentReportMutationResult = Apollo.MutationResult<DeleteIncidentReportMutation>;
+export type DeleteIncidentReportMutationOptions = Apollo.BaseMutationOptions<DeleteIncidentReportMutation, DeleteIncidentReportMutationVariables>;
 export const DeletePostDocument = gql`
     mutation DeletePost($id: Int!) {
   deletePost(id: $id)

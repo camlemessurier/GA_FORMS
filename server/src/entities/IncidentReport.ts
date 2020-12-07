@@ -42,11 +42,11 @@ export class IncidentReport extends BaseEntity {
 	updatedAt: Date;
 
 	@Field((type) => String)
-	@Column()
+	@Column({ nullable: true })
 	isReviewed: string;
 
 	@Field((type) => String)
-	@Column()
+	@Column({ nullable: true })
 	reviewer: string;
 
 	// ----------------------- Incident Details ------------------------- //
@@ -64,7 +64,7 @@ export class IncidentReport extends BaseEntity {
 	incidentDetails: string;
 
 	@Field((type) => String)
-	@Column()
+	@Column({ nullable: true })
 	incidentWitnesses: string;
 
 	@Field((type) => String)
@@ -94,70 +94,70 @@ export class IncidentReport extends BaseEntity {
 	// ----------------------- Injury Details ------------------------- //
 
 	@Field((type) => String)
-	@Column()
+	@Column({ nullable: true })
 	injuryNature: string;
 
 	@Field((type) => String)
-	@Column()
+	@Column({ nullable: true })
 	injuryLocation: string;
 
 	@Field((type) => String)
-	@Column()
+	@Column({ nullable: true })
 	injuryAgency: string;
 
 	@Field((type) => String)
-	@Column()
+	@Column({ nullable: true })
 	stoppedWork: string;
 
 	@Field((type) => String)
-	@Column()
+	@Column({ nullable: true })
 	treatmentRecieved: string;
 
 	@Field((type) => String)
-	@Column()
+	@Column({ nullable: true })
 	treatmentDetails: string;
 
 	// ----------------------- Equipment Damage Details ------------------------- //
 
 	@Field((type) => String)
-	@Column()
+	@Column({ nullable: true })
 	equipmentCompany: string;
 
 	@Field((type) => String)
-	@Column()
+	@Column({ nullable: true })
 	equipmentItem: string;
 
 	@Field((type) => String)
-	@Column()
+	@Column({ nullable: true })
 	damageDetails: string;
 
 	// ----------------------- Incident Investigation ------------------------- //
 
 	@Field((type) => String)
-	@Column()
+	@Column({ nullable: true })
 	causalFactors: string;
 
 	@Field((type) => String)
-	@Column()
+	@Column({ nullable: true })
 	recurrenceLiklihood: string;
 
 	@Field((type) => String)
-	@Column()
+	@Column({ nullable: true })
 	outcomeSeverity: string;
 
 	@Field((type) => String)
-	@Column()
+	@Column({ nullable: true })
 	resultingRisk: string;
 
 	@Field((type) => String)
-	@Column()
+	@Column({ nullable: true })
 	actionsTaken: string;
 
 	@Field((type) => String)
-	@Column()
+	@Column({ nullable: true })
 	actionDate: string;
 
 	@Field((type) => String)
-	@Column()
+	@Column({ nullable: true })
 	actionPerson: string;
 }

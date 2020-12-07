@@ -21,22 +21,28 @@ type InputFieldProps = InputHTMLAttributes<HTMLInputElement> &
 		label?: string;
 		inputType?: string;
 		placeholder?: string;
+		required?: boolean;
 	};
 
 export const InputField: React.FC<InputFieldProps> = ({
 	label,
 	inputType,
 	size,
+	required,
 	...props
 }) => {
-	const [field, { error }, helpers] = useField(props);
+	const [field, { error, touched }, helpers] = useField(props);
 
 	if (inputType === "textarea") {
 		return (
-			<FormControl isInvalid={!!error}>
+			<FormControl isInvalid={!!error} isRequired={required}>
 				<FormLabel htmlFor={field.name}>{label}</FormLabel>
 				<Textarea {...field} {...props} id={field.name} />
-				{error ? <FormErrorMessage>{error}</FormErrorMessage> : null}
+				{error ? (
+					<FormErrorMessage mt={2} color="red.500">
+						{touched && error}
+					</FormErrorMessage>
+				) : null}
 			</FormControl>
 		);
 	}
@@ -51,7 +57,7 @@ export const InputField: React.FC<InputFieldProps> = ({
 
 		const options = ["Yes", "No"];
 		return (
-			<FormControl isInvalid={!!error}>
+			<FormControl isInvalid={!!error} isRequired={required}>
 				<FormLabel htmlFor={field.name}>{label}</FormLabel>
 				<HStack {...group} justify="center" mt={4}>
 					{options.map((value: string) => {
@@ -63,16 +69,24 @@ export const InputField: React.FC<InputFieldProps> = ({
 						);
 					})}
 				</HStack>
-				{error ? <FormErrorMessage>{error}</FormErrorMessage> : null}
+				{error ? (
+					<FormErrorMessage mt={2} color="red.500">
+						{touched && error}
+					</FormErrorMessage>
+				) : null}
 			</FormControl>
 		);
 	}
 
 	return (
-		<FormControl isInvalid={!!error}>
+		<FormControl isInvalid={!!error} isRequired={required}>
 			<FormLabel htmlFor={field.name}>{label}</FormLabel>
 			<Input {...field} {...props} id={field.name} />
-			{error ? <FormErrorMessage>{error}</FormErrorMessage> : null}
+			{error ? (
+				<FormErrorMessage mt={2} color="red.500">
+					{touched && error}
+				</FormErrorMessage>
+			) : null}
 		</FormControl>
 	);
 };

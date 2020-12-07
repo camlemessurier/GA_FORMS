@@ -19,7 +19,7 @@ const questions = {
 			placeholder: "12 Huntingdale Dr",
 		},
 		{
-			name: "incidentDetail",
+			name: "incidentDetails",
 			label: "Incident details (what happened)",
 			inputType: "textarea",
 			required: true,
@@ -37,13 +37,13 @@ const questions = {
 			name: "injurySustained",
 			label: "Incident injury",
 			inputType: "radio",
-			required: false,
+			required: true,
 		},
 		{
 			name: "equipmentDamaged",
 			label: "Incident equipment damage",
 			inputType: "radio",
-			required: false,
+			required: true,
 		},
 	],
 	safety_checks: [
@@ -89,7 +89,7 @@ const questions = {
 			required: false,
 		},
 		{
-			name: "inuryAgency",
+			name: "injuryAgency",
 			label: "injury agency",
 			type: "label",
 			placeholder: "stupidity",
@@ -103,8 +103,14 @@ const questions = {
 		},
 		{
 			name: "treatmentRecieved",
-			label: "Treatment details",
+			label: "Treatment recived",
 			inputType: "radio",
+			required: false,
+		},
+		{
+			name: "treatmentDetails",
+			label: "treamtnet details",
+			inputType: "textarea",
 			required: false,
 			placeholder:
 				"Tam was taken to the doctors, however they were unable to help locate his brain",
@@ -137,7 +143,7 @@ const questions = {
 		{
 			name: "causalFactors",
 			label: "Causal factors",
-			type: "textarea",
+			inputType: "textarea",
 			placeholder: "Doctors could not figure it out. ",
 			required: true,
 		},
@@ -160,7 +166,7 @@ const questions = {
 			label: "Resulting risk",
 			placeholder: "Use SWMS matrix to calculate",
 			type: "label",
-			required: true,
+			required: false,
 		},
 		{
 			name: "actionsTaken",
@@ -168,10 +174,10 @@ const questions = {
 			placeholder:
 				"Cam gently tapped on Tam's head, which seemed to fix the problem",
 			type: "textarea",
-			required: true,
+			required: false,
 		},
 		{
-			name: "actionsDate",
+			name: "actionDate",
 			label: "Action implented on",
 			type: "date",
 			required: false,

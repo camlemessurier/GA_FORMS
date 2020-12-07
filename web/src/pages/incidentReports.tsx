@@ -1,7 +1,17 @@
-import { Box, Button, Flex, Heading, Link, Stack, Text } from "@chakra-ui/core";
+import {
+	Box,
+	Button,
+	Flex,
+	Heading,
+	Link,
+	Skeleton,
+	SkeletonText,
+	Stack,
+	Text,
+} from "@chakra-ui/core";
 import NextLink from "next/link";
 import React from "react";
-import { EditDeletePostButtons } from "../components/EditDeletePostButtons";
+import { EditDeleteReportButtons } from "../components/EditDeleteReportButtons";
 import { Layout } from "../components/Layout";
 import { useIncidentReportsQuery } from "../generated/graphql";
 
@@ -42,10 +52,23 @@ const incidentReports = () => {
 			</Flex>
 			<br />
 			{!data && loading ? (
-				<div>loading...</div>
+				<>
+					<Box padding="6" boxShadow="lg" bg="white" mb={2}>
+						<Skeleton height="20px" />
+						<SkeletonText mt="4" noOfLines={2} spacing="4" />
+					</Box>
+					<Box padding="6" boxShadow="lg" bg="white" mb={2}>
+						<Skeleton height="20px" />
+						<SkeletonText mt="4" noOfLines={4} spacing="4" />
+					</Box>
+					<Box padding="6" boxShadow="lg" bg="white" mb={2}>
+						<Skeleton height="20px" />
+						<SkeletonText mt="4" noOfLines={4} spacing="4" />
+					</Box>
+				</>
 			) : (
 				<Stack spacing={8}>
-					{data?.incidentReports?.incidentReports && (
+					{data?.incidentReports?.incidentReports.length === 0 && (
 						<Box borderRadius="lg" color="grey">
 							{" "}
 							No reports to show
@@ -64,7 +87,7 @@ const incidentReports = () => {
 									<Flex align="center">
 										<Text mt={4}>{p.textSnippet}</Text>
 										<Box ml="auto">
-											<EditDeletePostButtons
+											<EditDeleteReportButtons
 												id={p.id}
 												creatorId={p.creator.id}
 											/>

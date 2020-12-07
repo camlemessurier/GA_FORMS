@@ -1,0 +1,3 @@
+mutation DeleteIncidentReport($id: Int!) {
+	deleteIncidentReport(id: $id)
+}
