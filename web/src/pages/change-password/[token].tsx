@@ -6,11 +6,8 @@ import React, { useState } from "react";
 import { InputField } from "../../components/InputField";
 import { Wrapper } from "../../components/Wrapper";
 import { toErrorMap } from "../../utils/toErrorMap";
-import login from "../login";
 import { useChangePasswordMutation } from "../../generated/graphql";
 import { useRouter } from "next/router";
-import { withUrqlClient } from "next-urql";
-import { createUrqlClient } from "../../utils/createUrqlClient";
 
 const ChangePassword: NextPage = () => {
 	const [changePassword] = useChangePasswordMutation();

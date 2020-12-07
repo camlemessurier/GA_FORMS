@@ -1,4 +1,4 @@
-import { Box, Button } from "@chakra-ui/core";
+import { Box, Button, Flex } from "@chakra-ui/core";
 import { Formik, Form } from "formik";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
@@ -16,6 +16,7 @@ const CreatePost: React.FC<{}> = ({}) => {
 			<Formik
 				initialValues={{ title: "", text: "" }}
 				onSubmit={async (values) => {
+					console.log(values);
 					const { errors } = await createPost({
 						variables: { input: values },
 						update: (cache) => {
@@ -23,31 +24,38 @@ const CreatePost: React.FC<{}> = ({}) => {
 						},
 					});
 					if (!errors) {
-						router.push("/");
+						//router.push("/");
 					}
 				}}
 			>
-				{({ isSubmitting }) => (
+				{({ isSubmitting, values }) => (
 					<>
 						<Form>
-							<InputField name="title" label="title" placeholder="title" />
+							<Box>
+								<InputField name="title" label="title" placeholder="title" />
+							</Box>
 							<Box mt={4}>
 								<InputField
-									type="textarea"
+									inputType="textarea"
 									name="text"
 									label="text"
 									placeholder="text..."
 								/>
 							</Box>
+							<Box mt={4}>
+								<InputField inputType="radio" name="hello" label="hello" />
+							</Box>
 
-							<Button
-								mt={4}
-								type="submit"
-								isLoading={isSubmitting}
-								colorScheme="teal"
-							>
-								Post
-							</Button>
+							<Flex mt={8}>
+								<Button
+									type="submit"
+									isLoading={isSubmitting}
+									colorScheme="teal"
+									margin="auto"
+								>
+									Post
+								</Button>
+							</Flex>
 						</Form>
 					</>
 				)}

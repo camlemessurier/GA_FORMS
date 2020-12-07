@@ -6,9 +6,7 @@ import { isServer } from "../utils/isServer";
 import { useRouter } from "next/router";
 import { useApolloClient } from "@apollo/client";
 
-interface NavbarProps {}
-
-export const Navbar: React.FC<NavbarProps> = ({}) => {
+export const Navbar: React.FC = ({}) => {
 	const router = useRouter();
 	const [logout, { loading: logoutFetching }] = useLogoutMutation();
 	const apolloClient = useApolloClient();
@@ -51,7 +49,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
 	}
 
 	return (
-		<Flex position="sticky" top={0} zIndex={1} bg="blue.400" p={4}>
+		<Flex position="sticky" top={0} zIndex={1} bg="blue.700" p={4}>
 			<Flex flex={1} margin="auto" align="center">
 				<NextLink href="/">
 					<Link color="white">
