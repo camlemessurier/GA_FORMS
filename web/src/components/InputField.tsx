@@ -17,8 +17,8 @@ import {
 
 type InputFieldProps = InputHTMLAttributes<HTMLInputElement> &
 	TextareaHTMLAttributes<HTMLTextAreaElement> & {
-		label: string;
 		name: string;
+		label?: string;
 		inputType?: string;
 		placeholder?: string;
 	};

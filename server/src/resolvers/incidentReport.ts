@@ -42,7 +42,7 @@ export class IncidentReportResolver {
 	}
 
 	@Query(() => PaginatedReports)
-	async posts(
+	async incidentReports(
 		@Arg("limit", () => Int) limit: number,
 		@Arg("cursor", () => String, { nullable: true }) cursor: string | null
 	): Promise<PaginatedReports> {
@@ -58,7 +58,7 @@ export class IncidentReportResolver {
 		const incidentReports = await getConnection().query(
 			`
 				select p.*
-				from incidentReport p
+				from incident_report p
 				${cursor ? `where p."createdAt" < $2` : ""}
 				order by p."createdAt" DESC
 				limit $1
@@ -73,13 +73,15 @@ export class IncidentReportResolver {
 	}
 
 	@Query(() => IncidentReport, { nullable: true })
-	post(@Arg("id", () => Int) id: number): Promise<IncidentReport | undefined> {
+	IncidentReport(
+		@Arg("id", () => Int) id: number
+	): Promise<IncidentReport | undefined> {
 		return IncidentReport.findOne(id);
 	}
 
 	@Mutation(() => IncidentReport)
 	@UseMiddleware(isAuth)
-	async createPost(
+	async createIncidentReport(
 		@Arg("input") input: IncidentReportInput,
 		@Ctx() { req }: MyContext
 	): Promise<IncidentReport> {
@@ -91,7 +93,7 @@ export class IncidentReportResolver {
 
 	@Mutation(() => IncidentReport, { nullable: true })
 	@UseMiddleware(isAuth)
-	async updatePost(
+	async updateIncidentReport(
 		@Arg("id", () => Int) id: number,
 		@Arg("input") input: IncidentReportInput,
 		@Ctx() { req }: MyContext
@@ -112,7 +114,7 @@ export class IncidentReportResolver {
 
 	@Mutation(() => Boolean)
 	@UseMiddleware(isAuth)
-	async deletePost(
+	async deleteIncidentReport(
 		@Arg("id", () => Int) id: number,
 		@Ctx() { req }: MyContext
 	): Promise<boolean> {

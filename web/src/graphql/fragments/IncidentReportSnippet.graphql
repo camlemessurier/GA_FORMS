@@ -1,0 +1,11 @@
+fragment IncidentReportSnippet on IncidentReport {
+	id
+	title
+	creator {
+		id
+		username
+	}
+	createdAt
+	isReviewed
+	textSnippet
+}

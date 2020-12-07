@@ -1,0 +1,28 @@
+mutation CreateIncidentReport($input: IncidentReportInput!) {
+	createIncidentReport(input: $input) {
+		id
+		createdAt
+		updatedAt
+		title
+		incidentDatetime
+		incidentLocation
+		incidentDetails
+		incidentWitnesses
+		take5Completed
+		SWMScompleted
+		siteProceduresFollowed
+		fatiguePlanCompleted
+		injurySustained
+		equipmentDamaged
+		equipmentCompany
+		equipmentItem
+		damageDetails
+		causalFactors
+		recurrenceLiklihood
+		outcomeSeverity
+		resultingRisk
+		actionsTaken
+		actionDate
+		actionPerson
+	}
+}

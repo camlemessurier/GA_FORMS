@@ -1,0 +1,37 @@
+fragment IncidentReport on IncidentReport {
+	id
+	title
+	creator {
+		id
+		username
+	}
+	createdAt
+	reviewer
+	isReviewed
+	incidentDatetime
+	incidentLocation
+	incidentDetails
+	incidentWitnesses
+	take5Completed
+	SWMScompleted
+	fatiguePlanCompleted
+	siteProceduresFollowed
+	injurySustained
+	equipmentDamaged
+	injuryNature
+	injuryLocation
+	injuryAgency
+	stoppedWork
+	treatmentRecieved
+	treatmentDetails
+	equipmentItem
+	equipmentCompany
+	damageDetails
+	causalFactors
+	resultingRisk
+	recurrenceLiklihood
+	outcomeSeverity
+	actionsTaken
+	actionDate
+	actionPerson
+}

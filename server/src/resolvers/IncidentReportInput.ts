@@ -5,7 +5,7 @@ export class IncidentReportInput {
 	@Field()
 	title: string;
 	@Field()
-	time: string;
+	incidentDatetime: string;
 	@Field()
 	incidentLocation: string;
 	@Field()
@@ -13,17 +13,17 @@ export class IncidentReportInput {
 	@Field()
 	incidentWitnesses: string;
 	@Field()
-	take5Completed: boolean;
+	take5Completed: string;
 	@Field()
-	SWMScompleted: boolean;
+	SWMScompleted: string;
 	@Field()
-	fatiguePlanCompleted: boolean;
+	fatiguePlanCompleted: string;
 	@Field()
-	siteProceduresFollowed: boolean;
+	siteProceduresFollowed: string;
 	@Field()
-	injurySustained: boolean;
+	injurySustained: string;
 	@Field()
-	equipmentDamaged: boolean;
+	equipmentDamaged: string;
 	@Field((type) => String)
 	injuryNature: string;
 
@@ -33,11 +33,11 @@ export class IncidentReportInput {
 	@Field((type) => String)
 	injuryAgency: string;
 
-	@Field((type) => Boolean)
-	stoppedWork: boolean;
+	@Field((type) => String)
+	stoppedWork: string;
 
-	@Field((type) => Boolean)
-	treatmentRecieved: boolean;
+	@Field((type) => String)
+	treatmentRecieved: string;
 
 	@Field((type) => String)
 	treatmentDetails: string;

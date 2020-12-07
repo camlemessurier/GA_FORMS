@@ -4,7 +4,8 @@
    "port": 5432,
    "username": "camlemessurier",
    "password": "postgres",
-   "database": "reddit3",
+   "database": "ga_cam",
    "entities": ["dist/entities/*.js"],
-   "migrations": ["dist/migrations/*.js"]
+   "migrations": ["dist/migrations/*.js"],
+   "synchronize": true
 }

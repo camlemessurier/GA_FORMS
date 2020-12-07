@@ -15,9 +15,22 @@ export type Scalars = {
 
 export type Query = {
   __typename?: 'Query';
+  incidentReports: PaginatedReports;
+  IncidentReport?: Maybe<IncidentReport>;
   posts: PaginatedPosts;
   post?: Maybe<Post>;
   me?: Maybe<User>;
+};
+
+
+export type QueryIncidentReportsArgs = {
+  cursor?: Maybe<Scalars['String']>;
+  limit: Scalars['Int'];
+};
+
+
+export type QueryIncidentReportArgs = {
+  id: Scalars['Int'];
 };
 
 
@@ -29,6 +42,60 @@ export type QueryPostsArgs = {
 
 export type QueryPostArgs = {
   id: Scalars['Int'];
+};
+
+export type PaginatedReports = {
+  __typename?: 'PaginatedReports';
+  incidentReports: Array<IncidentReport>;
+  hasMore: Scalars['Boolean'];
+};
+
+export type IncidentReport = {
+  __typename?: 'IncidentReport';
+  id: Scalars['Int'];
+  title: Scalars['String'];
+  creatorId: Scalars['Int'];
+  creator: User;
+  createdAt: Scalars['String'];
+  updatedAt: Scalars['String'];
+  isReviewed: Scalars['String'];
+  reviewer: Scalars['String'];
+  incidentDatetime: Scalars['String'];
+  incidentLocation: Scalars['String'];
+  incidentDetails: Scalars['String'];
+  incidentWitnesses: Scalars['String'];
+  take5Completed: Scalars['String'];
+  SWMScompleted: Scalars['String'];
+  fatiguePlanCompleted: Scalars['String'];
+  siteProceduresFollowed: Scalars['String'];
+  injurySustained: Scalars['String'];
+  equipmentDamaged: Scalars['String'];
+  injuryNature: Scalars['String'];
+  injuryLocation: Scalars['String'];
+  injuryAgency: Scalars['String'];
+  stoppedWork: Scalars['String'];
+  treatmentRecieved: Scalars['String'];
+  treatmentDetails: Scalars['String'];
+  equipmentCompany: Scalars['String'];
+  equipmentItem: Scalars['String'];
+  damageDetails: Scalars['String'];
+  causalFactors: Scalars['String'];
+  recurrenceLiklihood: Scalars['String'];
+  outcomeSeverity: Scalars['String'];
+  resultingRisk: Scalars['String'];
+  actionsTaken: Scalars['String'];
+  actionDate: Scalars['String'];
+  actionPerson: Scalars['String'];
+  textSnippet: Scalars['String'];
+};
+
+export type User = {
+  __typename?: 'User';
+  id: Scalars['Int'];
+  username: Scalars['String'];
+  email: Scalars['String'];
+  createdAt: Scalars['String'];
+  updatedAt: Scalars['String'];
 };
 
 export type PaginatedPosts = {
@@ -51,17 +118,11 @@ export type Post = {
   textSnippet: Scalars['String'];
 };
 
-export type User = {
-  __typename?: 'User';
-  id: Scalars['Int'];
-  username: Scalars['String'];
-  email: Scalars['String'];
-  createdAt: Scalars['String'];
-  updatedAt: Scalars['String'];
-};
-
 export type Mutation = {
   __typename?: 'Mutation';
+  createIncidentReport: IncidentReport;
+  updateIncidentReport?: Maybe<IncidentReport>;
+  deleteIncidentReport: Scalars['Boolean'];
   createPost: Post;
   updatePost?: Maybe<Post>;
   deletePost: Scalars['Boolean'];
@@ -70,6 +131,22 @@ export type Mutation = {
   register: UserResponse;
   login: UserResponse;
   logout: Scalars['Boolean'];
+};
+
+
+export type MutationCreateIncidentReportArgs = {
+  input: IncidentReportInput;
+};
+
+
+export type MutationUpdateIncidentReportArgs = {
+  input: IncidentReportInput;
+  id: Scalars['Int'];
+};
+
+
+export type MutationDeleteIncidentReportArgs = {
+  id: Scalars['Int'];
 };
 
 
@@ -111,6 +188,36 @@ export type MutationLoginArgs = {
   usernameOrEmail: Scalars['String'];
 };
 
+export type IncidentReportInput = {
+  title: Scalars['String'];
+  incidentDatetime: Scalars['String'];
+  incidentLocation: Scalars['String'];
+  incidentDetails: Scalars['String'];
+  incidentWitnesses: Scalars['String'];
+  take5Completed: Scalars['String'];
+  SWMScompleted: Scalars['String'];
+  fatiguePlanCompleted: Scalars['String'];
+  siteProceduresFollowed: Scalars['String'];
+  injurySustained: Scalars['String'];
+  equipmentDamaged: Scalars['String'];
+  injuryNature: Scalars['String'];
+  injuryLocation: Scalars['String'];
+  injuryAgency: Scalars['String'];
+  stoppedWork: Scalars['String'];
+  treatmentRecieved: Scalars['String'];
+  treatmentDetails: Scalars['String'];
+  equipmentCompany: Scalars['String'];
+  equipmentItem: Scalars['String'];
+  damageDetails: Scalars['String'];
+  causalFactors: Scalars['String'];
+  recurrenceLiklihood: Scalars['String'];
+  outcomeSeverity: Scalars['String'];
+  resultingRisk: Scalars['String'];
+  actionsTaken: Scalars['String'];
+  actionDate: Scalars['String'];
+  actionPerson: Scalars['String'];
+};
+
 export type PostInput = {
   title: Scalars['String'];
   text: Scalars['String'];
@@ -133,6 +240,24 @@ export type UsernamePasswordInput = {
   username: Scalars['String'];
   password: Scalars['String'];
 };
+
+export type IncidentReportFragment = (
+  { __typename?: 'IncidentReport' }
+  & Pick<IncidentReport, 'id' | 'title' | 'createdAt' | 'reviewer' | 'isReviewed' | 'incidentDatetime' | 'incidentLocation' | 'incidentDetails' | 'incidentWitnesses' | 'take5Completed' | 'SWMScompleted' | 'fatiguePlanCompleted' | 'siteProceduresFollowed' | 'injurySustained' | 'equipmentDamaged' | 'injuryNature' | 'injuryLocation' | 'injuryAgency' | 'stoppedWork' | 'treatmentRecieved' | 'treatmentDetails' | 'equipmentItem' | 'equipmentCompany' | 'damageDetails' | 'causalFactors' | 'resultingRisk' | 'recurrenceLiklihood' | 'outcomeSeverity' | 'actionsTaken' | 'actionDate' | 'actionPerson'>
+  & { creator: (
+    { __typename?: 'User' }
+    & Pick<User, 'id' | 'username'>
+  ) }
+);
+
+export type IncidentReportSnippetFragment = (
+  { __typename?: 'IncidentReport' }
+  & Pick<IncidentReport, 'id' | 'title' | 'createdAt' | 'isReviewed' | 'textSnippet'>
+  & { creator: (
+    { __typename?: 'User' }
+    & Pick<User, 'id' | 'username'>
+  ) }
+);
 
 export type PostSnippetFragment = (
   { __typename?: 'Post' }
@@ -175,6 +300,19 @@ export type ChangePasswordMutation = (
   & { changePassword: (
     { __typename?: 'UserResponse' }
     & RegularUserResponseFragment
+  ) }
+);
+
+export type CreateIncidentReportMutationVariables = Exact<{
+  input: IncidentReportInput;
+}>;
+
+
+export type CreateIncidentReportMutation = (
+  { __typename?: 'Mutation' }
+  & { createIncidentReport: (
+    { __typename?: 'IncidentReport' }
+    & Pick<IncidentReport, 'id' | 'createdAt' | 'updatedAt' | 'title' | 'incidentDatetime' | 'incidentLocation' | 'incidentDetails' | 'incidentWitnesses' | 'take5Completed' | 'SWMScompleted' | 'siteProceduresFollowed' | 'fatiguePlanCompleted' | 'injurySustained' | 'equipmentDamaged' | 'equipmentCompany' | 'equipmentItem' | 'damageDetails' | 'causalFactors' | 'recurrenceLiklihood' | 'outcomeSeverity' | 'resultingRisk' | 'actionsTaken' | 'actionDate' | 'actionPerson'>
   ) }
 );
 
@@ -261,6 +399,37 @@ export type UpdatePostMutation = (
   )> }
 );
 
+export type IncidentReportQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type IncidentReportQuery = (
+  { __typename?: 'Query' }
+  & { IncidentReport?: Maybe<(
+    { __typename?: 'IncidentReport' }
+    & IncidentReportFragment
+  )> }
+);
+
+export type IncidentReportsQueryVariables = Exact<{
+  limit: Scalars['Int'];
+  cursor?: Maybe<Scalars['String']>;
+}>;
+
+
+export type IncidentReportsQuery = (
+  { __typename?: 'Query' }
+  & { incidentReports: (
+    { __typename?: 'PaginatedReports' }
+    & Pick<PaginatedReports, 'hasMore'>
+    & { incidentReports: Array<(
+      { __typename?: 'IncidentReport' }
+      & IncidentReportSnippetFragment
+    )> }
+  ) }
+);
+
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -307,6 +476,58 @@ export type PostsQuery = (
   ) }
 );
 
+export const IncidentReportFragmentDoc = gql`
+    fragment IncidentReport on IncidentReport {
+  id
+  title
+  creator {
+    id
+    username
+  }
+  createdAt
+  reviewer
+  isReviewed
+  incidentDatetime
+  incidentLocation
+  incidentDetails
+  incidentWitnesses
+  take5Completed
+  SWMScompleted
+  fatiguePlanCompleted
+  siteProceduresFollowed
+  injurySustained
+  equipmentDamaged
+  injuryNature
+  injuryLocation
+  injuryAgency
+  stoppedWork
+  treatmentRecieved
+  treatmentDetails
+  equipmentItem
+  equipmentCompany
+  damageDetails
+  causalFactors
+  resultingRisk
+  recurrenceLiklihood
+  outcomeSeverity
+  actionsTaken
+  actionDate
+  actionPerson
+}
+    `;
+export const IncidentReportSnippetFragmentDoc = gql`
+    fragment IncidentReportSnippet on IncidentReport {
+  id
+  title
+  creator {
+    id
+    username
+  }
+  createdAt
+  isReviewed
+  textSnippet
+}
+    `;
 export const PostSnippetFragmentDoc = gql`
     fragment PostSnippet on Post {
   id
@@ -376,6 +597,61 @@ export function useChangePasswordMutation(baseOptions?: Apollo.MutationHookOptio
 export type ChangePasswordMutationHookResult = ReturnType<typeof useChangePasswordMutation>;
 export type ChangePasswordMutationResult = Apollo.MutationResult<ChangePasswordMutation>;
 export type ChangePasswordMutationOptions = Apollo.BaseMutationOptions<ChangePasswordMutation, ChangePasswordMutationVariables>;
+export const CreateIncidentReportDocument = gql`
+    mutation CreateIncidentReport($input: IncidentReportInput!) {
+  createIncidentReport(input: $input) {
+    id
+    createdAt
+    updatedAt
+    title
+    incidentDatetime
+    incidentLocation
+    incidentDetails
+    incidentWitnesses
+    take5Completed
+    SWMScompleted
+    siteProceduresFollowed
+    fatiguePlanCompleted
+    injurySustained
+    equipmentDamaged
+    equipmentCompany
+    equipmentItem
+    damageDetails
+    causalFactors
+    recurrenceLiklihood
+    outcomeSeverity
+    resultingRisk
+    actionsTaken
+    actionDate
+    actionPerson
+  }
+}
+    `;
+export type CreateIncidentReportMutationFn = Apollo.MutationFunction<CreateIncidentReportMutation, CreateIncidentReportMutationVariables>;
+
+/**
+ * __useCreateIncidentReportMutation__
+ *
+ * To run a mutation, you first call `useCreateIncidentReportMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateIncidentReportMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createIncidentReportMutation, { data, loading, error }] = useCreateIncidentReportMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateIncidentReportMutation(baseOptions?: Apollo.MutationHookOptions<CreateIncidentReportMutation, CreateIncidentReportMutationVariables>) {
+        return Apollo.useMutation<CreateIncidentReportMutation, CreateIncidentReportMutationVariables>(CreateIncidentReportDocument, baseOptions);
+      }
+export type CreateIncidentReportMutationHookResult = ReturnType<typeof useCreateIncidentReportMutation>;
+export type CreateIncidentReportMutationResult = Apollo.MutationResult<CreateIncidentReportMutation>;
+export type CreateIncidentReportMutationOptions = Apollo.BaseMutationOptions<CreateIncidentReportMutation, CreateIncidentReportMutationVariables>;
 export const CreatePostDocument = gql`
     mutation CreatePost($input: PostInput!) {
   createPost(input: $input) {
@@ -605,6 +881,76 @@ export function useUpdatePostMutation(baseOptions?: Apollo.MutationHookOptions<U
 export type UpdatePostMutationHookResult = ReturnType<typeof useUpdatePostMutation>;
 export type UpdatePostMutationResult = Apollo.MutationResult<UpdatePostMutation>;
 export type UpdatePostMutationOptions = Apollo.BaseMutationOptions<UpdatePostMutation, UpdatePostMutationVariables>;
+export const IncidentReportDocument = gql`
+    query IncidentReport($id: Int!) {
+  IncidentReport(id: $id) {
+    ...IncidentReport
+  }
+}
+    ${IncidentReportFragmentDoc}`;
+
+/**
+ * __useIncidentReportQuery__
+ *
+ * To run a query within a React component, call `useIncidentReportQuery` and pass it any options that fit your needs.
+ * When your component renders, `useIncidentReportQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useIncidentReportQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useIncidentReportQuery(baseOptions: Apollo.QueryHookOptions<IncidentReportQuery, IncidentReportQueryVariables>) {
+        return Apollo.useQuery<IncidentReportQuery, IncidentReportQueryVariables>(IncidentReportDocument, baseOptions);
+      }
+export function useIncidentReportLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<IncidentReportQuery, IncidentReportQueryVariables>) {
+          return Apollo.useLazyQuery<IncidentReportQuery, IncidentReportQueryVariables>(IncidentReportDocument, baseOptions);
+        }
+export type IncidentReportQueryHookResult = ReturnType<typeof useIncidentReportQuery>;
+export type IncidentReportLazyQueryHookResult = ReturnType<typeof useIncidentReportLazyQuery>;
+export type IncidentReportQueryResult = Apollo.QueryResult<IncidentReportQuery, IncidentReportQueryVariables>;
+export const IncidentReportsDocument = gql`
+    query IncidentReports($limit: Int!, $cursor: String) {
+  incidentReports(limit: $limit, cursor: $cursor) {
+    hasMore
+    incidentReports {
+      ...IncidentReportSnippet
+    }
+  }
+}
+    ${IncidentReportSnippetFragmentDoc}`;
+
+/**
+ * __useIncidentReportsQuery__
+ *
+ * To run a query within a React component, call `useIncidentReportsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useIncidentReportsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useIncidentReportsQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *      cursor: // value for 'cursor'
+ *   },
+ * });
+ */
+export function useIncidentReportsQuery(baseOptions: Apollo.QueryHookOptions<IncidentReportsQuery, IncidentReportsQueryVariables>) {
+        return Apollo.useQuery<IncidentReportsQuery, IncidentReportsQueryVariables>(IncidentReportsDocument, baseOptions);
+      }
+export function useIncidentReportsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<IncidentReportsQuery, IncidentReportsQueryVariables>) {
+          return Apollo.useLazyQuery<IncidentReportsQuery, IncidentReportsQueryVariables>(IncidentReportsDocument, baseOptions);
+        }
+export type IncidentReportsQueryHookResult = ReturnType<typeof useIncidentReportsQuery>;
+export type IncidentReportsLazyQueryHookResult = ReturnType<typeof useIncidentReportsLazyQuery>;
+export type IncidentReportsQueryResult = Apollo.QueryResult<IncidentReportsQuery, IncidentReportsQueryVariables>;
 export const MeDocument = gql`
     query Me {
   me {

@@ -1,0 +1,8 @@
+query IncidentReports($limit: Int!, $cursor: String) {
+	incidentReports(limit: $limit, cursor: $cursor) {
+		hasMore
+		incidentReports {
+			...IncidentReportSnippet
+		}
+	}
+}

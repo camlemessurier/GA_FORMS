@@ -1,3 +1,4 @@
+import { IncidentReportResolver } from "./resolvers/incidentReport";
 import { ApolloServer } from "apollo-server-express";
 import connectRedis from "connect-redis";
 import cors from "cors";
@@ -59,7 +60,7 @@ const main = async () => {
 
 	const apolloServer = new ApolloServer({
 		schema: await buildSchema({
-			resolvers: [PostResolver, UserResolver],
+			resolvers: [PostResolver, UserResolver, IncidentReportResolver],
 			validate: false,
 		}),
 		context: ({ req, res }) => ({

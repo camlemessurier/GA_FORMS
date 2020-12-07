@@ -41,9 +41,9 @@ export class IncidentReport extends BaseEntity {
 	@UpdateDateColumn()
 	updatedAt: Date;
 
-	@Field((type) => Boolean)
+	@Field((type) => String)
 	@Column()
-	isReviewed: boolean;
+	isReviewed: string;
 
 	@Field((type) => String)
 	@Column()
@@ -52,8 +52,8 @@ export class IncidentReport extends BaseEntity {
 	// ----------------------- Incident Details ------------------------- //
 
 	@Field((type) => String)
-	@Column({ type: "time" })
-	time: string;
+	@Column()
+	incidentDatetime: string;
 
 	@Field((type) => String)
 	@Column()
@@ -67,29 +67,29 @@ export class IncidentReport extends BaseEntity {
 	@Column()
 	incidentWitnesses: string;
 
-	@Field((type) => Boolean)
+	@Field((type) => String)
 	@Column()
-	take5Completed: boolean;
+	take5Completed: string;
 
-	@Field((type) => Boolean)
+	@Field((type) => String)
 	@Column()
-	SWMScompleted: boolean;
+	SWMScompleted: string;
 
-	@Field((type) => Boolean)
+	@Field((type) => String)
 	@Column()
-	fatiguePlanCompleted: boolean;
+	fatiguePlanCompleted: string;
 
-	@Field((type) => Boolean)
+	@Field((type) => String)
 	@Column()
-	siteProceduresFollowed: boolean;
+	siteProceduresFollowed: string;
 
-	@Field((type) => Boolean)
+	@Field((type) => String)
 	@Column()
-	injurySustained: boolean;
+	injurySustained: string;
 
-	@Field((type) => Boolean)
+	@Field((type) => String)
 	@Column()
-	equipmentDamaged: boolean;
+	equipmentDamaged: string;
 
 	// ----------------------- Injury Details ------------------------- //
 
@@ -105,13 +105,13 @@ export class IncidentReport extends BaseEntity {
 	@Column()
 	injuryAgency: string;
 
-	@Field((type) => Boolean)
+	@Field((type) => String)
 	@Column()
-	stoppedWork: boolean;
+	stoppedWork: string;
 
-	@Field((type) => Boolean)
+	@Field((type) => String)
 	@Column()
-	treatmentRecieved: boolean;
+	treatmentRecieved: string;
 
 	@Field((type) => String)
 	@Column()
