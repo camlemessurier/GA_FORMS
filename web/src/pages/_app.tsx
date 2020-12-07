@@ -1,4 +1,9 @@
-import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import {
+	ApolloClient,
+	ApolloProvider,
+	HttpLink,
+	InMemoryCache,
+} from "@apollo/client";
 import { CSSReset, ThemeProvider } from "@chakra-ui/core";
 import React from "react";
 import theme from "../theme";
@@ -28,6 +33,19 @@ const client = new ApolloClient({
 			},
 		},
 	}),
+});
+
+import { onError } from "@apollo/client/link/error";
+
+const link = onError(({ graphQLErrors, networkError }) => {
+	if (graphQLErrors)
+		graphQLErrors.map(({ message, locations, path }) =>
+			console.log(
+				`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+			)
+		);
+
+	if (networkError) console.log(`[Network error]: ${networkError}`);
 });
 
 function MyApp({ Component, pageProps }: any) {

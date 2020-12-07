@@ -9,6 +9,7 @@ import { buildSchema } from "type-graphql";
 import { createConnection } from "typeorm";
 import { Post } from "./entities/Post";
 import { User } from "./entities/User";
+import { IncidentReport } from "./entities/IncidentReport";
 import { PostResolver } from "./resolvers/post";
 import { UserResolver } from "./resolvers/user";
 import path from "path";
@@ -24,7 +25,7 @@ const main = async () => {
 		logging: true,
 		synchronize: true,
 		migrations: [path.join(__dirname, "./migrations/*")],
-		entities: [Post, User],
+		entities: [Post, User, IncidentReport],
 	});
 
 	const app = express();

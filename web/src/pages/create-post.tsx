@@ -23,12 +23,13 @@ const CreatePost: React.FC<{}> = ({}) => {
 							cache.evict({ fieldName: "posts:{}" });
 						},
 					});
+					console.log(errors);
 					if (!errors) {
-						//router.push("/");
+						router.push("/");
 					}
 				}}
 			>
-				{({ isSubmitting, values }) => (
+				{({ isSubmitting }) => (
 					<>
 						<Form>
 							<Box>
@@ -41,9 +42,6 @@ const CreatePost: React.FC<{}> = ({}) => {
 									label="text"
 									placeholder="text..."
 								/>
-							</Box>
-							<Box mt={4}>
-								<InputField inputType="radio" name="hello" label="hello" />
 							</Box>
 
 							<Flex mt={8}>
