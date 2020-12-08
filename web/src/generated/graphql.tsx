@@ -217,7 +217,7 @@ export type IncidentReportInput = {
   actionsTaken: Scalars['String'];
   actionDate: Scalars['String'];
   actionPerson: Scalars['String'];
-  isReviewed: Scalars['String'];
+  isReviewed?: Maybe<Scalars['String']>;
 };
 
 export type PostInput = {
@@ -394,6 +394,20 @@ export type RegisterMutation = (
     { __typename?: 'UserResponse' }
     & RegularUserResponseFragment
   ) }
+);
+
+export type UpdateIncidentReportMutationVariables = Exact<{
+  input: IncidentReportInput;
+  id: Scalars['Int'];
+}>;
+
+
+export type UpdateIncidentReportMutation = (
+  { __typename?: 'Mutation' }
+  & { updateIncidentReport?: Maybe<(
+    { __typename?: 'IncidentReport' }
+    & Pick<IncidentReport, 'id' | 'createdAt' | 'updatedAt' | 'title' | 'incidentDatetime' | 'incidentLocation' | 'incidentDetails' | 'incidentWitnesses' | 'take5Completed' | 'SWMScompleted' | 'siteProceduresFollowed' | 'fatiguePlanCompleted' | 'injurySustained' | 'equipmentDamaged' | 'equipmentCompany' | 'equipmentItem' | 'damageDetails' | 'causalFactors' | 'recurrenceLiklihood' | 'outcomeSeverity' | 'resultingRisk' | 'actionsTaken' | 'actionDate' | 'actionPerson' | 'isReviewed'>
+  )> }
 );
 
 export type UpdatePostMutationVariables = Exact<{
@@ -888,6 +902,63 @@ export function useRegisterMutation(baseOptions?: Apollo.MutationHookOptions<Reg
 export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
+export const UpdateIncidentReportDocument = gql`
+    mutation UpdateIncidentReport($input: IncidentReportInput!, $id: Int!) {
+  updateIncidentReport(input: $input, id: $id) {
+    id
+    createdAt
+    updatedAt
+    title
+    incidentDatetime
+    incidentLocation
+    incidentDetails
+    incidentWitnesses
+    take5Completed
+    SWMScompleted
+    siteProceduresFollowed
+    fatiguePlanCompleted
+    injurySustained
+    equipmentDamaged
+    equipmentCompany
+    equipmentItem
+    damageDetails
+    causalFactors
+    recurrenceLiklihood
+    outcomeSeverity
+    resultingRisk
+    actionsTaken
+    actionDate
+    actionPerson
+    isReviewed
+  }
+}
+    `;
+export type UpdateIncidentReportMutationFn = Apollo.MutationFunction<UpdateIncidentReportMutation, UpdateIncidentReportMutationVariables>;
+
+/**
+ * __useUpdateIncidentReportMutation__
+ *
+ * To run a mutation, you first call `useUpdateIncidentReportMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateIncidentReportMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateIncidentReportMutation, { data, loading, error }] = useUpdateIncidentReportMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useUpdateIncidentReportMutation(baseOptions?: Apollo.MutationHookOptions<UpdateIncidentReportMutation, UpdateIncidentReportMutationVariables>) {
+        return Apollo.useMutation<UpdateIncidentReportMutation, UpdateIncidentReportMutationVariables>(UpdateIncidentReportDocument, baseOptions);
+      }
+export type UpdateIncidentReportMutationHookResult = ReturnType<typeof useUpdateIncidentReportMutation>;
+export type UpdateIncidentReportMutationResult = Apollo.MutationResult<UpdateIncidentReportMutation>;
+export type UpdateIncidentReportMutationOptions = Apollo.BaseMutationOptions<UpdateIncidentReportMutation, UpdateIncidentReportMutationVariables>;
 export const UpdatePostDocument = gql`
     mutation UpdatePost($id: Int!, $title: String!, $text: String!) {
   updatePost(id: $id, title: $title, text: $text) {

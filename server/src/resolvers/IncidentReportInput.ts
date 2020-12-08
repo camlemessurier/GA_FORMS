@@ -72,6 +72,6 @@ export class IncidentReportInput {
 	@Field((type) => String)
 	actionPerson: string;
 
-	@Field((type) => String)
+	@Field((type) => String, { nullable: true })
 	isReviewed: string;
 }

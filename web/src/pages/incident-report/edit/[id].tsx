@@ -2,31 +2,65 @@ import { Box, Button, Text, Flex, Heading } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
 import { useRouter } from "next/router";
 import React from "react";
-import { InputField } from "../components/InputField";
-import { Layout } from "../components/Layout";
-import { useCreateIncidentReportMutation } from "../generated/graphql";
-import { useIsAuth } from "../utils/useIsAuth";
-import questions from "../questions";
+import { InputField } from "../../../components/InputField";
+import { Layout } from "../../../components/Layout";
+import {
+	useCreateIncidentReportMutation,
+	useIncidentReportQuery,
+	usePostQuery,
+	useUpdateIncidentReportMutation,
+	useUpdatePostMutation,
+} from "../../../generated/graphql";
+import { useIsAuth } from "../../../utils/useIsAuth";
+import questions from "../../../questions";
 import * as Yup from "yup";
+import { useGetIntId } from "../../../utils/useGetIntId";
 
-const IncidentReportSchema = Yup.object().shape({
-	title: Yup.string()
-		.min(2, "Too Short!")
-		.max(50, "Too Long!")
-		.required("Required"),
-	incidentDatetime: Yup.string().required("Field Required"),
-	incidentDetails: Yup.string().required("Field Required"),
-	injurySustained: Yup.string().required("Field Required"),
-	equipmentDamaged: Yup.string().required("Field Required"),
-	causalFactors: Yup.string().required("Field Required"),
-	recurrenceLiklihood: Yup.string().required("Field Required"),
-	outcomeSeverity: Yup.string().required("Field Required"),
-});
-
-const CreatePost: React.FC<{}> = ({}) => {
-	const [createReport] = useCreateIncidentReportMutation();
+const EditIncidentReport: React.FC = () => {
 	const router = useRouter();
 	useIsAuth();
+
+	const IncidentReportSchema = Yup.object().shape({
+		title: Yup.string()
+			.min(2, "Too Short!")
+			.max(50, "Too Long!")
+			.required("Required"),
+		incidentDatetime: Yup.string().required("Field Required"),
+		incidentDetails: Yup.string().required("Field Required"),
+		injurySustained: Yup.string().required("Field Required"),
+		equipmentDamaged: Yup.string().required("Field Required"),
+		causalFactors: Yup.string().required("Field Required"),
+		recurrenceLiklihood: Yup.string().required("Field Required"),
+		outcomeSeverity: Yup.string().required("Field Required"),
+	});
+
+	const intId = useGetIntId();
+	const { data, loading } = useIncidentReportQuery({
+		skip: intId === -1,
+		variables: {
+			id: intId,
+		},
+	});
+	const [updateReport] = useUpdateIncidentReportMutation();
+
+	if (loading) {
+		return (
+			<Layout>
+				<div>loading</div>
+			</Layout>
+		);
+	}
+
+	if (!data?.IncidentReport) {
+		return (
+			<Layout>
+				<div>could no find post</div>
+			</Layout>
+		);
+	}
+
+	const incidentReportsInitialValues = data.IncidentReport;
+
 	return (
 		<Layout variant="small">
 			<Formik
@@ -34,12 +68,13 @@ const CreatePost: React.FC<{}> = ({}) => {
 				validationSchema={IncidentReportSchema}
 				enableReinitialize
 				onSubmit={async (values) => {
-					const { errors } = await createReport({
-						variables: { input: values },
+					const { errors } = await updateReport({
+						variables: { input: values, id: intId },
 						update: (cache) => {
 							cache.reset();
 						},
 					});
+					console.log(errors);
 					if (!errors) {
 						router.push("/incidentReports");
 					}
@@ -161,35 +196,4 @@ const CreatePost: React.FC<{}> = ({}) => {
 	);
 };
 
-const incidentReportsInitialValues = {
-	title: "",
-	incidentDatetime: "",
-	incidentLocation: "",
-	incidentDetails: "",
-	incidentWitnesses: "",
-	injurySustained: "",
-	equipmentDamaged: "",
-	take5Completed: "",
-	SWMScompleted: "",
-	fatiguePlanCompleted: "",
-	siteProceduresFollowed: "",
-	injuryNature: "",
-	injuryLocation: "",
-	injuryAgency: "",
-	stoppedWork: "",
-	treatmentRecieved: "",
-	treatmentDetails: "",
-	equipmentItem: "",
-	equipmentCompany: "",
-	damageDetails: "",
-	causalFactors: "",
-	resultingRisk: "",
-	recurrenceLiklihood: "",
-	outcomeSeverity: "",
-	actionsTaken: "",
-	actionDate: "",
-	actionPerson: "",
-	isReviewed: "No",
-};
-
-export default CreatePost;
+export default EditIncidentReport;

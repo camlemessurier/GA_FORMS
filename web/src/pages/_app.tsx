@@ -1,4 +1,10 @@
-import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import {
+	ApolloClient,
+	ApolloLink,
+	ApolloProvider,
+	HttpLink,
+	InMemoryCache,
+} from "@apollo/client";
 import { CSSReset, ChakraProvider, theme } from "@chakra-ui/react";
 import React from "react";
 import { PaginatedPosts } from "../generated/graphql";
@@ -19,6 +25,10 @@ const link = onError(({ graphQLErrors, networkError }) => {
 const client = new ApolloClient({
 	uri: "http://localhost:4000/graphql",
 	credentials: "include",
+	link: ApolloLink.from([
+		link,
+		new HttpLink({ uri: "http://localhost:4000/graphql" }),
+	]),
 	cache: new InMemoryCache({
 		typePolicies: {
 			Query: {

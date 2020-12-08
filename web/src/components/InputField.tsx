@@ -14,6 +14,7 @@ import {
 	useRadio,
 	Box,
 } from "@chakra-ui/react";
+import { TypeMetaFieldDef } from "graphql";
 
 type InputFieldProps = InputHTMLAttributes<HTMLInputElement> &
 	TextareaHTMLAttributes<HTMLTextAreaElement> & {
@@ -31,16 +32,16 @@ export const InputField: React.FC<InputFieldProps> = ({
 	required,
 	...props
 }) => {
-	const [field, { error, touched }, helpers] = useField(props);
+	const [field, meta, helpers] = useField(props);
 
 	if (inputType === "textarea") {
 		return (
-			<FormControl isInvalid={!!error} isRequired={required}>
+			<FormControl isInvalid={!!meta.error} isRequired={required}>
 				<FormLabel htmlFor={field.name}>{label}</FormLabel>
 				<Textarea {...field} {...props} id={field.name} />
-				{error ? (
+				{meta.error ? (
 					<FormErrorMessage mt={2} color="red.500">
-						{touched && error}
+						{meta.touched && meta.error}
 					</FormErrorMessage>
 				) : null}
 			</FormControl>
@@ -57,7 +58,7 @@ export const InputField: React.FC<InputFieldProps> = ({
 
 		const options = ["Yes", "No"];
 		return (
-			<FormControl isInvalid={!!error} isRequired={required}>
+			<FormControl isInvalid={!!meta.error} isRequired={required}>
 				<FormLabel htmlFor={field.name}>{label}</FormLabel>
 				<HStack {...group} justify="center" mt={4}>
 					{options.map((value: string) => {
@@ -69,9 +70,9 @@ export const InputField: React.FC<InputFieldProps> = ({
 						);
 					})}
 				</HStack>
-				{error ? (
+				{meta.error ? (
 					<FormErrorMessage mt={2} color="red.500">
-						{touched && error}
+						{meta.touched && meta.error}
 					</FormErrorMessage>
 				) : null}
 			</FormControl>
@@ -79,12 +80,12 @@ export const InputField: React.FC<InputFieldProps> = ({
 	}
 
 	return (
-		<FormControl isInvalid={!!error} isRequired={required}>
+		<FormControl isInvalid={!!meta.error} isRequired={required}>
 			<FormLabel htmlFor={field.name}>{label}</FormLabel>
-			<Input {...field} {...props} id={field.name} />
-			{error ? (
+			<Input {...field} {...meta} {...props} id={field.name} />
+			{meta.error ? (
 				<FormErrorMessage mt={2} color="red.500">
-					{touched && error}
+					{meta.touched && meta.error}
 				</FormErrorMessage>
 			) : null}
 		</FormControl>
