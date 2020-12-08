@@ -1,16 +1,8 @@
-import {
-	ApolloClient,
-	ApolloLink,
-	ApolloProvider,
-	HttpLink,
-	InMemoryCache,
-} from "@apollo/client";
-import { CSSReset, ThemeProvider } from "@chakra-ui/core";
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import { CSSReset, ChakraProvider, theme } from "@chakra-ui/react";
 import React from "react";
-import theme from "../theme";
-import { PaginatedPosts, PostsQuery } from "../generated/graphql";
+import { PaginatedPosts } from "../generated/graphql";
 import Head from "next/head";
-
 import { onError } from "@apollo/client/link/error";
 
 const link = onError(({ graphQLErrors, networkError }) => {
@@ -56,10 +48,10 @@ function MyApp({ Component, pageProps }: any) {
 				<title>Global Acoustics: Forms</title>
 			</Head>
 			<ApolloProvider client={client}>
-				<ThemeProvider theme={theme}>
+				<ChakraProvider theme={theme}>
 					<CSSReset />
 					<Component {...pageProps} />
-				</ThemeProvider>
+				</ChakraProvider>
 			</ApolloProvider>
 		</>
 	);

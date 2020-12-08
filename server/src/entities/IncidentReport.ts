@@ -41,13 +41,17 @@ export class IncidentReport extends BaseEntity {
 	@UpdateDateColumn()
 	updatedAt: Date;
 
-	@Field((type) => String)
+	@Field((type) => String, { nullable: true })
 	@Column({ nullable: true })
 	isReviewed: string;
 
-	@Field((type) => String)
+	@Field((type) => String, { nullable: true })
 	@Column({ nullable: true })
 	reviewer: string;
+
+	@Field((type) => String, { nullable: true })
+	@Column({ nullable: true })
+	reviewDate: Date;
 
 	// ----------------------- Incident Details ------------------------- //
 

@@ -13,7 +13,7 @@ import {
 	HStack,
 	useRadio,
 	Box,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 
 type InputFieldProps = InputHTMLAttributes<HTMLInputElement> &
 	TextareaHTMLAttributes<HTMLTextAreaElement> & {

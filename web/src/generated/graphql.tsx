@@ -58,8 +58,9 @@ export type IncidentReport = {
   creator: User;
   createdAt: Scalars['String'];
   updatedAt: Scalars['String'];
-  isReviewed: Scalars['String'];
-  reviewer: Scalars['String'];
+  isReviewed?: Maybe<Scalars['String']>;
+  reviewer?: Maybe<Scalars['String']>;
+  reviewDate?: Maybe<Scalars['String']>;
   incidentDatetime: Scalars['String'];
   incidentLocation: Scalars['String'];
   incidentDetails: Scalars['String'];
@@ -244,7 +245,7 @@ export type UsernamePasswordInput = {
 
 export type IncidentReportFragment = (
   { __typename?: 'IncidentReport' }
-  & Pick<IncidentReport, 'id' | 'title' | 'createdAt' | 'reviewer' | 'isReviewed' | 'incidentDatetime' | 'incidentLocation' | 'incidentDetails' | 'incidentWitnesses' | 'take5Completed' | 'SWMScompleted' | 'fatiguePlanCompleted' | 'siteProceduresFollowed' | 'injurySustained' | 'equipmentDamaged' | 'injuryNature' | 'injuryLocation' | 'injuryAgency' | 'stoppedWork' | 'treatmentRecieved' | 'treatmentDetails' | 'equipmentItem' | 'equipmentCompany' | 'damageDetails' | 'causalFactors' | 'resultingRisk' | 'recurrenceLiklihood' | 'outcomeSeverity' | 'actionsTaken' | 'actionDate' | 'actionPerson'>
+  & Pick<IncidentReport, 'id' | 'title' | 'createdAt' | 'reviewer' | 'isReviewed' | 'reviewDate' | 'incidentDatetime' | 'incidentLocation' | 'incidentDetails' | 'incidentWitnesses' | 'take5Completed' | 'SWMScompleted' | 'fatiguePlanCompleted' | 'siteProceduresFollowed' | 'injurySustained' | 'equipmentDamaged' | 'injuryNature' | 'injuryLocation' | 'injuryAgency' | 'stoppedWork' | 'treatmentRecieved' | 'treatmentDetails' | 'equipmentItem' | 'equipmentCompany' | 'damageDetails' | 'causalFactors' | 'resultingRisk' | 'recurrenceLiklihood' | 'outcomeSeverity' | 'actionsTaken' | 'actionDate' | 'actionPerson'>
   & { creator: (
     { __typename?: 'User' }
     & Pick<User, 'id' | 'username'>
@@ -498,6 +499,7 @@ export const IncidentReportFragmentDoc = gql`
   createdAt
   reviewer
   isReviewed
+  reviewDate
   incidentDatetime
   incidentLocation
   incidentDetails

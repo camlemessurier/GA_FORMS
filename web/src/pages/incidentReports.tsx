@@ -8,7 +8,7 @@ import {
 	SkeletonText,
 	Stack,
 	Text,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
 import { EditDeleteReportButtons } from "../components/EditDeleteReportButtons";
@@ -78,7 +78,10 @@ const incidentReports = () => {
 						!p ? null : (
 							<Flex key={p.id} p={5} shadow="md">
 								<Box flex={1}>
-									<NextLink href="/post/[id]" as={`/post/${p.id}`}>
+									<NextLink
+										href="/incident-report/[id]"
+										as={`/incident-report/${p.id}`}
+									>
 										<Link>
 											<Heading fontSize="xl">{p.title}</Heading>
 										</Link>

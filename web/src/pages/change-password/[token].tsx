@@ -1,5 +1,5 @@
 import NextLink from "next/link";
-import { Box, Button, Link } from "@chakra-ui/core";
+import { Box, Button, Link } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
 import { NextPage } from "next";
 import React, { useState } from "react";

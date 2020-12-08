@@ -7,7 +7,7 @@ import {
 	Link,
 	Stack,
 	Text,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
 import { Layout } from "../components/Layout";
