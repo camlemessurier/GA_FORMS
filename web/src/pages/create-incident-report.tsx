@@ -41,7 +41,7 @@ const CreatePost: React.FC<{}> = ({}) => {
 						},
 					});
 					if (!errors) {
-						router.push("/incidentReports");
+						router.push("/incident-reports");
 					}
 				}}
 			>

@@ -30,7 +30,7 @@ const Index = () => {
 			</NextLink>
 			<br />
 			<br />
-			<NextLink href="/incidentReports">
+			<NextLink href="/incident-reports">
 				<Button size="lg" as={Link} ml="auto" color="blue.800">
 					IncidentReports
 				</Button>

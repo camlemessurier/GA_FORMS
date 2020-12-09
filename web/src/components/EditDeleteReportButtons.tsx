@@ -78,7 +78,7 @@ export const EditDeleteReportButtons: React.FC<EditDeleteReportButtonsProps> = (
 											cache.evict({ id: "IncidentReport:" + id });
 										},
 									});
-									router.push("/incidentReports");
+									router.push("/incident-reports");
 								}}
 								ml={3}
 							>
