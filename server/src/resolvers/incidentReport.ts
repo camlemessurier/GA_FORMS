@@ -41,6 +41,20 @@ export class IncidentReportResolver {
 		return userLoader.load(incidentReport.creatorId);
 	}
 
+	@Mutation(() => Boolean)
+	async reviewIncidentReport(
+		@Arg("username", () => String) username: string,
+		@Arg("id", () => Int) id: number
+	): Promise<boolean> {
+		await getConnection()
+			.createQueryBuilder()
+			.update(IncidentReport)
+			.set({ reviewer: username, isReviewed: "Yes" })
+			.where("id= :id", { id: id })
+			.execute();
+		return true;
+	}
+
 	@Query(() => PaginatedReports)
 	async incidentReports(
 		@Arg("limit", () => Int) limit: number,

@@ -121,6 +121,7 @@ export type Post = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  reviewIncidentReport: Scalars['Boolean'];
   createIncidentReport: IncidentReport;
   updateIncidentReport?: Maybe<IncidentReport>;
   deleteIncidentReport: Scalars['Boolean'];
@@ -132,6 +133,12 @@ export type Mutation = {
   register: UserResponse;
   login: UserResponse;
   logout: Scalars['Boolean'];
+};
+
+
+export type MutationReviewIncidentReportArgs = {
+  id: Scalars['Int'];
+  username: Scalars['String'];
 };
 
 
@@ -394,6 +401,17 @@ export type RegisterMutation = (
     { __typename?: 'UserResponse' }
     & RegularUserResponseFragment
   ) }
+);
+
+export type ReviewIncidentReportMutationVariables = Exact<{
+  id: Scalars['Int'];
+  username: Scalars['String'];
+}>;
+
+
+export type ReviewIncidentReportMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'reviewIncidentReport'>
 );
 
 export type UpdateIncidentReportMutationVariables = Exact<{
@@ -902,6 +920,37 @@ export function useRegisterMutation(baseOptions?: Apollo.MutationHookOptions<Reg
 export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
+export const ReviewIncidentReportDocument = gql`
+    mutation reviewIncidentReport($id: Int!, $username: String!) {
+  reviewIncidentReport(id: $id, username: $username)
+}
+    `;
+export type ReviewIncidentReportMutationFn = Apollo.MutationFunction<ReviewIncidentReportMutation, ReviewIncidentReportMutationVariables>;
+
+/**
+ * __useReviewIncidentReportMutation__
+ *
+ * To run a mutation, you first call `useReviewIncidentReportMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useReviewIncidentReportMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [reviewIncidentReportMutation, { data, loading, error }] = useReviewIncidentReportMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      username: // value for 'username'
+ *   },
+ * });
+ */
+export function useReviewIncidentReportMutation(baseOptions?: Apollo.MutationHookOptions<ReviewIncidentReportMutation, ReviewIncidentReportMutationVariables>) {
+        return Apollo.useMutation<ReviewIncidentReportMutation, ReviewIncidentReportMutationVariables>(ReviewIncidentReportDocument, baseOptions);
+      }
+export type ReviewIncidentReportMutationHookResult = ReturnType<typeof useReviewIncidentReportMutation>;
+export type ReviewIncidentReportMutationResult = Apollo.MutationResult<ReviewIncidentReportMutation>;
+export type ReviewIncidentReportMutationOptions = Apollo.BaseMutationOptions<ReviewIncidentReportMutation, ReviewIncidentReportMutationVariables>;
 export const UpdateIncidentReportDocument = gql`
     mutation UpdateIncidentReport($input: IncidentReportInput!, $id: Int!) {
   updateIncidentReport(input: $input, id: $id) {

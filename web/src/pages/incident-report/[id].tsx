@@ -5,11 +5,15 @@ import {
 	AccordionItem,
 	AccordionPanel,
 	Box,
+	Flex,
 	Heading,
+	Spacer,
 	Text,
 } from "@chakra-ui/react";
 import React from "react";
+import { EditDeleteReportButtons } from "../../components/EditDeleteReportButtons";
 import { Layout } from "../../components/Layout";
+import { ReviewButton } from "../../components/ReviewButton";
 import { useGetReportFromUrl } from "../../utils/useGetReportFromUrl";
 
 const IncidentReport = ({}) => {
@@ -41,7 +45,22 @@ const IncidentReport = ({}) => {
 
 	return (
 		<Layout>
-			<Heading mb={4}>{data?.IncidentReport?.title}</Heading>
+			<Flex>
+				<Heading mb={4}>{data?.IncidentReport?.title}</Heading>
+				<Spacer />
+				<Box>
+					<EditDeleteReportButtons
+						id={data.IncidentReport.id}
+						creatorId={data.IncidentReport.creator.id}
+					/>
+					<ReviewButton
+						id={data.IncidentReport.id}
+						creatorId={data.IncidentReport.creator.id}
+						isReviewed={data.IncidentReport.isReviewed!}
+					/>
+				</Box>
+			</Flex>
+
 			<Text color="grey">{data?.IncidentReport.createdAt}</Text>
 			<Text color="grey">{data?.IncidentReport.creator.username}</Text>
 			<br />

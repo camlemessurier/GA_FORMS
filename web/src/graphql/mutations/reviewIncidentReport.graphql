@@ -1,0 +1,3 @@
+mutation reviewIncidentReport($id: Int!, $username: String!) {
+	reviewIncidentReport(id: $id, username: $username)
+}
