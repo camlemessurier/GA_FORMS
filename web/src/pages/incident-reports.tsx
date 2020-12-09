@@ -1,3 +1,4 @@
+import { AddIcon } from "@chakra-ui/icons";
 import {
 	Box,
 	Button,
@@ -44,9 +45,11 @@ const incidentReports = () => {
 	return (
 		<Layout>
 			<Flex align="center">
-				<Heading>Incident Reports</Heading>
+				<Heading size="lg" color="blue.600">
+					Incident Reports
+				</Heading>
 				<NextLink href="/create-incident-report">
-					<Button as={Link} ml="auto">
+					<Button leftIcon={<AddIcon mb={0} />} ml="auto">
 						New
 					</Button>
 				</NextLink>

@@ -11,6 +11,7 @@ import {
 	Text,
 } from "@chakra-ui/react";
 import React from "react";
+import { BackButton } from "../../components/BackButton";
 import { EditDeleteReportButtons } from "../../components/EditDeleteReportButtons";
 import { Layout } from "../../components/Layout";
 import { ReviewButton } from "../../components/ReviewButton";
@@ -48,7 +49,7 @@ const IncidentReport = ({}) => {
 			<Flex>
 				<Heading mb={4}>{data?.IncidentReport?.title}</Heading>
 				<Spacer />
-				<Box>
+				<Box display="flex">
 					<EditDeleteReportButtons
 						id={data.IncidentReport.id}
 						creatorId={data.IncidentReport.creator.id}
@@ -58,13 +59,16 @@ const IncidentReport = ({}) => {
 						creatorId={data.IncidentReport.creator.id}
 						isReviewed={data.IncidentReport.isReviewed!}
 					/>
+					<BackButton />
 				</Box>
 			</Flex>
 
-			<Text color="grey">{data?.IncidentReport.createdAt}</Text>
+			<Text color="grey">
+				{/* Erro but onlly way could figure it out. all the libraries kept giving me errors. Something to do with the the fact aht it's a string */}
+				{Date(data.IncidentReport.createdAt).toLocaleString().slice(0, 16)}
+			</Text>
 			<Text color="grey">{data?.IncidentReport.creator.username}</Text>
 			<br />
-
 			<Box mb={8}>
 				<Accordion allowToggle allowMultiple>
 					<AccordionItem>

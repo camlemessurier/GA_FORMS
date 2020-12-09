@@ -52,7 +52,7 @@ function MyApp({ Component, pageProps }: any) {
 	return (
 		<>
 			<Head>
-				<title>Global Acoustics: Forms</title>
+				<title>GA Forms</title>
 			</Head>
 			<ApolloProvider client={client}>
 				<ChakraProvider theme={theme}>
