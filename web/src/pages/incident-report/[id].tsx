@@ -58,7 +58,7 @@ const IncidentReport = ({}) => {
 							<AccordionIcon />
 						</AccordionButton>
 						<AccordionPanel pb={4}>
-							<table>
+							<table width="100%">
 								<tbody>
 									<tr>
 										<td>Incident Time</td>
@@ -98,7 +98,7 @@ const IncidentReport = ({}) => {
 							<AccordionIcon />
 						</AccordionButton>
 						<AccordionPanel pb={4}>
-							<table>
+							<table width="100%">
 								<tbody>
 									<tr>
 										<td>Take 5 completed</td>
@@ -131,7 +131,7 @@ const IncidentReport = ({}) => {
 						</AccordionButton>
 						<AccordionPanel pb={4}>
 							{data?.IncidentReport?.injurySustained === "Yes" ? (
-								<table>
+								<table width="100%">
 									<tbody>
 										<tr>
 											<td>Injury Nature</td>
@@ -175,7 +175,7 @@ const IncidentReport = ({}) => {
 						</AccordionButton>
 						<AccordionPanel pb={4}>
 							{data?.IncidentReport?.equipmentDamaged === "Yes" ? (
-								<table>
+								<table width="100%">
 									<tbody>
 										<tr>
 											<td>Equipment Company</td>
@@ -206,7 +206,7 @@ const IncidentReport = ({}) => {
 							<AccordionIcon />
 						</AccordionButton>
 						<AccordionPanel pb={4}>
-							<table>
+							<table width="100%">
 								<tbody>
 									<tr>
 										<td>Causal Factors</td>
@@ -250,18 +250,22 @@ const IncidentReport = ({}) => {
 							<AccordionIcon />
 						</AccordionButton>
 						<AccordionPanel pb={4}>
-							<table>
-								<tbody>
-									<tr>
-										<td>Report reviewed by</td>
-										<td>{data?.IncidentReport?.reviewer}</td>
-									</tr>
-									<tr>
-										<td>On the </td>
-										<td>{data?.IncidentReport?.reviewDate}</td>
-									</tr>
-								</tbody>
-							</table>
+							{data.IncidentReport.isReviewed === "Yes" ? (
+								<table width="100%">
+									<tbody>
+										<tr>
+											<td>Report reviewed by</td>
+											<td>{data?.IncidentReport?.reviewer}</td>
+										</tr>
+										<tr>
+											<td>On the </td>
+											<td>{data?.IncidentReport?.reviewDate}</td>
+										</tr>
+									</tbody>
+								</table>
+							) : (
+								<Text color="grey">Report not reviewed</Text>
+							)}
 						</AccordionPanel>
 					</AccordionItem>
 				</Accordion>

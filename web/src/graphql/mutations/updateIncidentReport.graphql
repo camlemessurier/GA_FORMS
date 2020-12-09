@@ -1,4 +1,4 @@
-mutation UpdateIncidentReport($input: IncidentReportInput!, $id: Int!) {
+mutation UpdateIncidentReport($input: !, $id: Int!) {
 	updateIncidentReport(input: $input, id: $id) {
 		id
 		createdAt

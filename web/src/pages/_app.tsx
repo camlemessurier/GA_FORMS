@@ -25,10 +25,7 @@ const link = onError(({ graphQLErrors, networkError }) => {
 const client = new ApolloClient({
 	uri: "http://localhost:4000/graphql",
 	credentials: "include",
-	link: ApolloLink.from([
-		link,
-		new HttpLink({ uri: "http://localhost:4000/graphql" }),
-	]),
+	//link: ApolloLink.from([link,new HttpLink({ uri: "http://localhost:4000/graphql" }),]), /// uncomment for graphql error checking. When on messes with workaround auth
 	cache: new InMemoryCache({
 		typePolicies: {
 			Query: {

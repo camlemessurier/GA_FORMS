@@ -59,7 +59,15 @@ const EditIncidentReport: React.FC = () => {
 		);
 	}
 
-	const incidentReportsInitialValues = data.IncidentReport;
+	const {
+		__typename,
+		id,
+		creator,
+		createdAt,
+		reviewer,
+		reviewDate,
+		...incidentReportsInitialValues
+	} = data.IncidentReport;
 
 	return (
 		<Layout variant="small">

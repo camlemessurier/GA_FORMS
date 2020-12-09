@@ -1,6 +1,7 @@
 import {
 	Box,
 	Button,
+	Divider,
 	Flex,
 	Heading,
 	Link,
@@ -50,6 +51,8 @@ const incidentReports = () => {
 					</Button>
 				</NextLink>
 			</Flex>
+
+			<Divider mt={2} />
 			<br />
 			{!data && loading ? (
 				<>
