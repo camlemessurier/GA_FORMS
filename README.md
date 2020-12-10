@@ -1,6 +1,5 @@
 # Global Acoustics Forms
 
-
 ## Technology Stack
 
 - Language: [Typescript](https://www.typescriptlang.org/)
@@ -24,10 +23,17 @@
 1. Enter directory --> `cd web`
 2. Running web app --> `yarn dev`
 
-
 ## Bugs
 
+- Session
 
+## TODO
+
+- Dockerise
+- Fix skeletons
+- Convert to mysql
+- Update readme
+- Login functionality
 
 ## Product Road Map
 
