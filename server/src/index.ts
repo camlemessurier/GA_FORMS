@@ -15,6 +15,7 @@ import { PostResolver } from "./resolvers/post";
 import { UserResolver } from "./resolvers/user";
 import path from "path";
 import { createUserLoader } from "./utils/createUserLoader";
+import helmet from "helmet";
 require("dotenv").config();
 
 const main = async () => {
@@ -56,7 +57,7 @@ const main = async () => {
 		})
 	);
 
-	//hello
+	app.use(helmet());
 
 	const apolloServer = new ApolloServer({
 		schema: await buildSchema({
