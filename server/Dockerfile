@@ -1,18 +1,12 @@
-FROM node:14
+FROM node:12-alpine
 
-WORKDIR /usr/src/app
+WORKDIR /home/app/server
 
 COPY package.json ./
 COPY yarn.lock ./
 
-RUN yarn
-
+RUN yarn install
 
 COPY . . 
 
-RUN yarn build
-
-ENV NODE_ENV production
-
-EXPOSE 8080
-CMD ["node", "dist/index.js"]
+EXPOSE 4000

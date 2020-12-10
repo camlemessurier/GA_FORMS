@@ -1,5 +1,13 @@
 # Global Acoustics Forms
 
+Hi Lance, am not completely sure how exactly you run your web apps, so I hope this is somewhat close. I believe you run everything on a GA server, all in docker containers? Also had a go at setting up nginx, but got pretty lost.
+
+At the moment, I have built a seperate database for all GA forms needs.
+
+Also, one issue ATM is login. Just for testing, just register and use that profile but for integrating with all actual ga accounts, I thi
+
+Believe you probably aleady have a REST API for seeing if a user is in the system and returning their data? Was thinking when users login in my app, just send the username and password, obvs hashed (have used SH256) to your API, and storing only username in GA FORMS database, thus all sensitive data is stored in your database not mine.
+  
 ## Technology Stack
 
 - Language: [Typescript](https://www.typescriptlang.org/)
@@ -9,19 +17,6 @@
 - Graphql Client: [Apollo Client](https://github.com/apollographql/apollo-client)
 - Web client: [next.js](https://nextjs.org/)
 - Styling: [Chakra UI](https://chakra-ui.com/)
-
-## Dev
-
-### Running the server
-
-1. Make sure both redis and postgres databases are running
-2. Enter directory --> `cd server`
-3. Compiling typescript to dist folder and running server --> `yarn dev`
-
-### Running the web client
-
-1. Enter directory --> `cd web`
-2. Running web app --> `yarn dev`
 
 ## Bugs
 

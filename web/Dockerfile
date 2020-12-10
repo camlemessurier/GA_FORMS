@@ -1,14 +1,12 @@
-FROM node:10-alpine
+FROM node:12-alpine
 
-RUN mkdir -p /app
-WORKDIR /app
+WORKDIR /home/app/api
 
-COPY package.json /app
-COPY yarn.lock /app
-
+COPY package.json ./
+COPY yarn.lock ./
 
 RUN yarn install
 
-COPY . /app
+COPY . .
 
-CMD ["yarn", "start"]
+EXPOSE 3000

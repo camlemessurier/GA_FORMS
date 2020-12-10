@@ -29,6 +29,9 @@ const main = async () => {
 		migrations: [path.join(__dirname, "./migrations/*")],
 		entities: [Post, User, IncidentReport],
 	});
+	if (process.env.NODE_ENV === "prod") {
+		conn.runMigrations(); // comment for prod
+	}
 
 	const app = express();
 	const RedisStore = connectRedis(session);
@@ -36,7 +39,7 @@ const main = async () => {
 
 	app.use(
 		cors({
-			origin: process.env.CORS_ORIGIN,
+			origin: "*",
 			credentials: true,
 		})
 	);
@@ -48,11 +51,11 @@ const main = async () => {
 			cookie: {
 				maxAge: 1000 * 60 * 60 * 24 * 365 * 10,
 				httpOnly: true,
-				secure: process.env.NODE_ENV === "production",
+				secure: true,
 				sameSite: "lax",
 			},
 			saveUninitialized: false,
-			secret: process.env.SESSION_SECRET as string,
+			secret: "sadfasdeiwiehndyeah",
 			resave: false,
 		})
 	);
