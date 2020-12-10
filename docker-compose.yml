@@ -18,6 +18,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./db/data/postgres:/var/lib/postgres/data
+      - /home/app/server/node_modules
 
   server:
     build: ./server
@@ -27,6 +28,7 @@ services:
       - 4000:4000
     volumes:
       - ./server:/home/app/server
+      - /home/app/server/node_modules
     links:
       - postgres
       - redis
@@ -41,6 +43,7 @@ services:
       - 3000:3000
     volumes:
       - ./web:/home/app/web
+      - /home/app/web/node_modules
     links:
       - server
     command: yarn dev
