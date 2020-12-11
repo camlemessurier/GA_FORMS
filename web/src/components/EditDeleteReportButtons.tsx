@@ -56,7 +56,11 @@ export const EditDeleteReportButtons: React.FC<EditDeleteReportButtonsProps> = (
 				aria-label="Delete Post"
 				onClick={() => setIsOpen(true)}
 			/>
-			<AlertDialog isOpen={isOpen} onClose={() => setIsOpen(false)}>
+			<AlertDialog
+				leastDestructiveRef={undefined}
+				isOpen={isOpen}
+				onClose={() => setIsOpen(false)}
+			>
 				<AlertDialogOverlay>
 					<AlertDialogContent>
 						<AlertDialogHeader fontSize="lg" fontWeight="bold">

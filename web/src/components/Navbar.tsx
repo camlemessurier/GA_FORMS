@@ -30,7 +30,7 @@ export const Navbar: React.FC = (props) => {
 		body = (
 			<>
 				<LinkButton to="/login">Login</LinkButton>
-				<LinkButton to="/signup">Sign Up</LinkButton>
+				<LinkButton to="/register">Register</LinkButton>
 			</>
 		);
 	} else {

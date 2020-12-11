@@ -44,6 +44,10 @@ const IncidentReport = ({}) => {
 		);
 	}
 
+	const date = new Date(data.IncidentReport.createdAt)
+		.toLocaleString()
+		.slice(0, 16);
+
 	return (
 		<Layout>
 			<Flex>
@@ -65,7 +69,7 @@ const IncidentReport = ({}) => {
 
 			<Text color="grey">
 				{/* Erro but onlly way could figure it out. all the libraries kept giving me errors. Something to do with the the fact aht it's a string */}
-				{Date(data.IncidentReport.createdAt).toLocaleString().slice(0, 16)}
+				{date}
 			</Text>
 			<Text color="grey">{data?.IncidentReport.creator.username}</Text>
 			<br />

@@ -29,6 +29,7 @@ Believe you probably aleady have a REST API for seeing if a user is in the syste
 - Convert to mysql
 - Update readme
 - Login functionality
+- Email Notifications
 
 ## Product Road Map
 

@@ -13,9 +13,11 @@ services:
       - POSTGRES_USER=user
       - POSTGRES_DB=postgresdb
       - POSTGRES_PASSWORD=password
+      - POSTGRES_HOST=localhost
     ports:
       - 5432:5432
     restart: unless-stopped
+      
     volumes:
       - ./db/data/postgres:/var/lib/postgres/data
       - /home/app/server/node_modules
@@ -24,18 +26,23 @@ services:
     build: ./server
     environment:
       - NODE_ENV=prod
+      - POSTGRES_USER=user
+      - POSTGRES_DB=postgresdb
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_HOST=localhost
     ports:
       - 4000:4000
     volumes:
       - ./server:/home/app/server
       - /home/app/server/node_modules
+    command: yarn dev
     links:
       - postgres
       - redis
-    command: yarn dev
     depends_on:
       - redis
       - postgres
+
 
   web:
     build: ./web

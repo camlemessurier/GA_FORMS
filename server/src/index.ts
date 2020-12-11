@@ -21,26 +21,28 @@ require("dotenv").config();
 const main = async () => {
 	const conn = await createConnection({
 		type: "postgres",
-		username: process.env.DB_USERNAME,
-		password: process.env.DB_PASSWORD,
-		database: process.env.DB_NAME,
+		username: process.env.POSTGRES_USER || "camlemessurier",
+		password: process.env.POSTGRES_PASSWORD || "postgres",
+		database: process.env.POSTGRES_DB || "ga_cam",
+		host: "postgres",
 		logging: true,
-		synchronize: true,
 		migrations: [path.join(__dirname, "./migrations/*")],
 		entities: [Post, User, IncidentReport],
+		cli: {
+			migrationsDir: "./src/migrations",
+		},
 	});
-	if (process.env.NODE_ENV === "prod") {
-		conn.runMigrations(); // comment for prod
-	}
+	conn.runMigrations();
 
 	const app = express();
 	const RedisStore = connectRedis(session);
-	const redis = new Redis();
+	const redis = new Redis("redis");
 
 	app.use(
 		cors({
 			origin: "*",
 			credentials: true,
+			allowedHeaders: "*",
 		})
 	);
 
@@ -51,7 +53,7 @@ const main = async () => {
 			cookie: {
 				maxAge: 1000 * 60 * 60 * 24 * 365 * 10,
 				httpOnly: true,
-				secure: true,
+				secure: false,
 				sameSite: "lax",
 			},
 			saveUninitialized: false,
@@ -60,7 +62,7 @@ const main = async () => {
 		})
 	);
 
-	app.use(helmet());
+	//app.use(helmet());
 
 	const apolloServer = new ApolloServer({
 		schema: await buildSchema({
@@ -77,7 +79,6 @@ const main = async () => {
 
 	apolloServer.applyMiddleware({
 		app,
-		cors: false,
 	});
 
 	app.listen(4000, () => {
