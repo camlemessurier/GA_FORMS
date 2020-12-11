@@ -60,12 +60,12 @@ Rules:
 - server/src/types.ts: Session bug
 - Custom radio buttons do not resect when in edit mode
 - Formik touches all field as soon as you touch one, and red bars go around all required fields immediately. This shifts everything by 1px per field as well
+- Dates aren't being formatted correctly
+- showing a sepcific incident report, the tables don't line up properly
 
 ## TODO
 
-- Fix skeletons
 - Convert to mysql
-- Display review status
 - Login functionality
 - Add logo
 - NA option for radio inputs

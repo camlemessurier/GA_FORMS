@@ -1,6 +1,7 @@
 import {
 	Box,
 	Button,
+	Center,
 	Divider,
 	Flex,
 	Heading,
@@ -15,19 +16,25 @@ import { Layout } from "../components/Layout";
 const Index = () => {
 	return (
 		<Layout>
-			<Flex align="center">
-				<Heading>Home</Heading>
-			</Flex>
+			<Heading color="blue.700">Home</Heading>
+
 			<Divider />
 
 			<br />
-			<br />
-
-			<NextLink href="/incident-reports">
-				<Button size="lg" as={Link} ml="auto" color="blue.800">
-					IncidentReports
-				</Button>
-			</NextLink>
+			<Center>
+				<NextLink href="/incident-reports">
+					<Flex
+						size="lg"
+						as={Button}
+						w="100%"
+						color="white"
+						bg="blue.400"
+						p={20}
+					>
+						<Heading size="lg">Incident Reports</Heading>
+					</Flex>
+				</NextLink>
+			</Center>
 		</Layout>
 	);
 };

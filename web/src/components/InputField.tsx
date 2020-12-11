@@ -58,9 +58,9 @@ export const InputField: React.FC<InputFieldProps> = ({
 
 		const options = ["Yes", "No"];
 		return (
-			<FormControl isInvalid={!!meta.error} isRequired={required}>
+			<FormControl isInvalid={!!meta.error} isRequired={required} mt={8}>
 				<FormLabel htmlFor={field.name}>{label}</FormLabel>
-				<HStack {...group} justify="center" mt={4}>
+				<HStack {...group} justify="center" mt={8}>
 					{options.map((value: string) => {
 						const radio = getRadioProps({ value });
 						return (
@@ -82,7 +82,7 @@ export const InputField: React.FC<InputFieldProps> = ({
 	return (
 		<FormControl isInvalid={!!meta.error} isRequired={required}>
 			<FormLabel htmlFor={field.name}>{label}</FormLabel>
-			<Input {...field} {...meta} {...props} id={field.name} />
+			<Input {...field} {...props} id={field.name} />
 			{meta.error ? (
 				<FormErrorMessage mt={2} color="red.500">
 					{meta.touched && meta.error}

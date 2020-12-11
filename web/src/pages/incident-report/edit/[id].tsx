@@ -5,11 +5,8 @@ import React from "react";
 import { InputField } from "../../../components/InputField";
 import { Layout } from "../../../components/Layout";
 import {
-	useCreateIncidentReportMutation,
 	useIncidentReportQuery,
-	usePostQuery,
 	useUpdateIncidentReportMutation,
-	useUpdatePostMutation,
 } from "../../../generated/graphql";
 import { useIsAuth } from "../../../utils/useIsAuth";
 import questions from "../../../questions";
@@ -84,7 +81,7 @@ const EditIncidentReport: React.FC = () => {
 					});
 					console.log(errors);
 					if (!errors) {
-						router.push("/incidentReports");
+						router.push("/incident-reports");
 					}
 				}}
 			>

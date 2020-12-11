@@ -7,9 +7,7 @@ import { Wrapper } from "../components/Wrapper";
 import { MeDocument, MeQuery, useRegisterMutation } from "../generated/graphql";
 import { toErrorMap } from "../utils/toErrorMap";
 
-interface registerProps {}
-
-const Register: React.FC<registerProps> = ({}) => {
+const Register: React.FC = () => {
 	const router = useRouter();
 	const [register] = useRegisterMutation();
 	return (

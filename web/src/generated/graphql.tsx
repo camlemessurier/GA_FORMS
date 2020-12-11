@@ -155,7 +155,6 @@ export type IncidentReportInput = {
   injurySustained: Scalars['String'];
   equipmentDamaged: Scalars['String'];
   injuryNature: Scalars['String'];
-  injuryLocation: Scalars['String'];
   injuryAgency: Scalars['String'];
   stoppedWork: Scalars['String'];
   treatmentRecieved: Scalars['String'];

@@ -34,13 +34,13 @@ const questions = {
 		},
 		{
 			name: "injurySustained",
-			label: "Someone was injured during the incident?",
+			label: "Was someone injured during the incident?",
 			inputType: "radio",
 			required: true,
 		},
 		{
 			name: "equipmentDamaged",
-			label: "Equipment was damaged during the incident?",
+			label: "Was equipment damaged during the incident?",
 			inputType: "radio",
 			required: true,
 		},
@@ -48,25 +48,25 @@ const questions = {
 	safety_checks: [
 		{
 			name: "take5Completed",
-			label: "Take 5 completed?",
+			label: "Was a take 5 completed?",
 			inputType: "radio",
 			required: false,
 		},
 		{
 			name: "SWMScompleted",
-			label: "SWMS completed?",
+			label: "Was a SWMS completed?",
 			inputType: "radio",
 			required: false,
 		},
 		{
 			name: "fatiguePlanCompleted",
-			label: "Fatigue plan completed?",
+			label: "Was a fatigue plan completed?",
 			inputType: "radio",
 			required: false,
 		},
 		{
 			name: "siteProceduresFollowed",
-			label: "Site specific procedures followed?",
+			label: "Were site specific procedures followed?",
 			inputType: "radio",
 			required: false,
 		},
@@ -80,29 +80,31 @@ const questions = {
 			placeholder:
 				"Describe the injury, where it happened on the body, how serious it was, etc... ",
 			required: false,
+			inputType: "textarea",
 		},
 		{
 			name: "injuryAgency",
-			label: "injury agency",
+			label: "Injury agency",
 			type: "label",
-			placeholder: "stupidity",
+			placeholder: "Describe how the injury happened...",
 			required: false,
+			inputType: "textarea",
 		},
 		{
 			name: "stoppedWork",
-			label: "Stopped work",
+			label: "Injured person stopped work",
 			inputType: "radio",
 			required: false,
 		},
 		{
 			name: "treatmentRecieved",
-			label: "Treatment recived",
+			label: "Treatment received",
 			inputType: "radio",
 			required: false,
 		},
 		{
 			name: "treatmentDetails",
-			label: "treamtnet details",
+			label: "Treatment details",
 			inputType: "textarea",
 			required: false,
 			placeholder: "Describe treatment in detail...",
@@ -165,7 +167,7 @@ const questions = {
 			label: "Actions taken to mitigate risk",
 			placeholder:
 				"List specific actions to reduce liklihood and severity of incident occuring again...",
-			type: "textarea",
+			inputType: "textarea",
 			required: false,
 		},
 		{
@@ -180,6 +182,7 @@ const questions = {
 			placeholder: "List who actioned each control",
 			type: "label",
 			required: false,
+			inputType: "textarea",
 		},
 	],
 };

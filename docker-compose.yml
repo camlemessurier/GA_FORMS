@@ -54,8 +54,6 @@ services:
       - /home/app/web/node_modules
     links:
       - server
-    environment:
-      - NODE_ENV=prod  
     command:  /bin/sh -c "yarn build && yarn start"
     depends_on:
       - redis

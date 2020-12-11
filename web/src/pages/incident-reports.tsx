@@ -9,12 +9,14 @@ import {
 	Skeleton,
 	SkeletonText,
 	Stack,
+	Tag,
 	Text,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
 import { EditDeleteReportButtons } from "../components/EditDeleteReportButtons";
 import { Layout } from "../components/Layout";
+import ReportSkeletons from "../components/ReportSkeletons";
 import { useIncidentReportsQuery } from "../generated/graphql";
 
 const incidentReports = () => {
@@ -48,8 +50,14 @@ const incidentReports = () => {
 				<Heading size="lg" color="blue.600">
 					Incident Reports
 				</Heading>
+
 				<NextLink href="/create-incident-report">
-					<Button leftIcon={<AddIcon mb={0} />} ml="auto">
+					<Button
+						colorScheme="blue"
+						bg="blue.400"
+						leftIcon={<AddIcon mb={0} />}
+						ml="auto"
+					>
 						New
 					</Button>
 				</NextLink>
@@ -58,52 +66,52 @@ const incidentReports = () => {
 			<Divider mt={2} />
 			<br />
 			{!data && loading ? (
-				<>
-					<Box padding="6" boxShadow="lg" bg="white" mb={2}>
-						<Skeleton height="20px" />
-						<SkeletonText mt="4" noOfLines={2} spacing="4" />
-					</Box>
-					<Box padding="6" boxShadow="lg" bg="white" mb={2}>
-						<Skeleton height="20px" />
-						<SkeletonText mt="4" noOfLines={4} spacing="4" />
-					</Box>
-					<Box padding="6" boxShadow="lg" bg="white" mb={2}>
-						<Skeleton height="20px" />
-						<SkeletonText mt="4" noOfLines={4} spacing="4" />
-					</Box>
-				</>
+				<ReportSkeletons />
 			) : (
 				<Stack spacing={8}>
-					{data?.incidentReports?.incidentReports.length === 0 && (
+					{data?.incidentReports?.incidentReports.length === 0 ? (
 						<Box borderRadius="lg" color="grey">
 							{" "}
 							No reports to show
 						</Box>
-					)}
-					{data!.incidentReports.incidentReports.map((p) =>
-						!p ? null : (
-							<Flex key={p.id} p={5} shadow="md">
-								<Box flex={1}>
-									<NextLink
-										href="/incident-report/[id]"
-										as={`/incident-report/${p.id}`}
-									>
-										<Link>
-											<Heading fontSize="xl">{p.title}</Heading>
-										</Link>
-									</NextLink>
-									<Text>posted by {p.creator.username}</Text>
-									<Flex align="center">
-										<Text mt={4}>{p.textSnippet}</Text>
-										<Box ml="auto">
-											<EditDeleteReportButtons
-												id={p.id}
-												creatorId={p.creator.id}
-											/>
-										</Box>
-									</Flex>
-								</Box>
-							</Flex>
+					) : (
+						data!.incidentReports.incidentReports.map((p) =>
+							!p ? null : (
+								<Flex key={p.id} p={5} shadow="md">
+									<Box flex={1}>
+										<Flex justify="space-between">
+											<NextLink
+												href="/incident-report/[id]"
+												as={`/incident-report/${p.id}`}
+											>
+												<Link>
+													<Heading fontSize="xl">{p.title}</Heading>
+												</Link>
+											</NextLink>
+											{p.isReviewed === "Yes" ? (
+												<Tag variant="solid" colorScheme="green">
+													Reviewed
+												</Tag>
+											) : (
+												<Tag variant="solid" colorScheme="red">
+													Not Reviewed
+												</Tag>
+											)}
+										</Flex>
+										<Text>posted by {p.creator.username}</Text>
+
+										<Flex align="center">
+											<Text mt={4}>{p.textSnippet}</Text>
+											<Box ml="auto">
+												<EditDeleteReportButtons
+													id={p.id}
+													creatorId={p.creator.id}
+												/>
+											</Box>
+										</Flex>
+									</Box>
+								</Flex>
+							)
 						)
 					)}
 				</Stack>

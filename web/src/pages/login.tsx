@@ -1,19 +1,30 @@
 import React from "react";
 import { Form, Formik } from "formik";
-import { Box, Button, Link, Flex, FormControl } from "@chakra-ui/react";
-import { Wrapper } from "../components/Wrapper";
+import {
+	Box,
+	Button,
+	Link,
+	Flex,
+	FormControl,
+	Heading,
+} from "@chakra-ui/react";
 import { InputField } from "../components/InputField";
 import { MeDocument, MeQuery, useLoginMutation } from "../generated/graphql";
 import { toErrorMap } from "../utils/toErrorMap";
 import { useRouter } from "next/router";
-import NextLink from "next/link";
+import { Layout } from "../components/Layout";
 
 const Login: React.FC<{}> = ({}) => {
 	const router = useRouter();
 	const [login] = useLoginMutation();
 
 	return (
-		<Wrapper variant="small">
+		<Layout variant="small">
+			<br />
+			<Heading color="blue.600" textAlign="center" as="h1" size="lg">
+				Login
+			</Heading>
+			<br />
 			<Formik
 				initialValues={{ usernameOrEmail: "", password: "" }}
 				onSubmit={async (values, { setErrors }) => {
@@ -42,31 +53,37 @@ const Login: React.FC<{}> = ({}) => {
 						<Form>
 							<InputField
 								name="usernameOrEmail"
-								label="Username or Email"
-								placeholder="Username or Email"
+								label="Username"
+								placeholder="Username"
 							/>
 							<Box mt={4}>
 								<InputField
 									name="password"
-									label="password"
-									placeholder="password"
+									label="Password"
+									placeholder="Password"
 									type="password"
 								/>
 							</Box>
 
-							<Button
-								mt={4}
-								type="submit"
-								isLoading={isSubmitting}
-								colorScheme="teal"
-							>
-								Login
-							</Button>
+							<br />
+
+							<Flex justify="center">
+								<Button
+									mt={4}
+									type="submit"
+									isLoading={isSubmitting}
+									bg="blue.600"
+									size="md"
+									color="white"
+								>
+									Login
+								</Button>
+							</Flex>
 						</Form>
 					</>
 				)}
 			</Formik>
-		</Wrapper>
+		</Layout>
 	);
 };
 

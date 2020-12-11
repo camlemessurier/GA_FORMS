@@ -28,9 +28,6 @@ export class IncidentReportInput {
 	injuryNature: string;
 
 	@Field((type) => String)
-	injuryLocation: string;
-
-	@Field((type) => String)
 	injuryAgency: string;
 
 	@Field((type) => String)

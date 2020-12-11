@@ -1,4 +1,4 @@
-import { Box, Button, Text, Flex, Heading } from "@chakra-ui/react";
+import { Box, Button, Text, Flex, Heading, Divider } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
 import { useRouter } from "next/router";
 import React from "react";
@@ -48,7 +48,7 @@ const CreatePost: React.FC<{}> = ({}) => {
 				{({ isSubmitting, values, errors }) => (
 					<>
 						<Form>
-							<Heading mt={10} mb={2} as="h3">
+							<Heading color="blue.600" mt={8} mb={4} as="h3">
 								Incident Details
 							</Heading>
 							{questions.incident_details.map((question) => (
@@ -65,7 +65,7 @@ const CreatePost: React.FC<{}> = ({}) => {
 								</Box>
 							))}
 
-							<Heading mt={20} mb={2} as="h3">
+							<Heading color="blue.600" mt={20} mb={2} as="h3">
 								Safety Checks
 							</Heading>
 							{questions.safety_checks.map((question) => (
@@ -80,7 +80,7 @@ const CreatePost: React.FC<{}> = ({}) => {
 								</Box>
 							))}
 
-							<Heading mt={20} mb={2} as="h3">
+							<Heading color="blue.600" mt={20} mb={2} as="h3">
 								Injury Details
 							</Heading>
 							{values.injurySustained === "Yes" ? (
@@ -98,10 +98,10 @@ const CreatePost: React.FC<{}> = ({}) => {
 									</Box>
 								))
 							) : (
-								<Box>No injury sustained</Box>
+								<Box>No injury selected</Box>
 							)}
 
-							<Heading mt={20} mb={2} as="h3">
+							<Heading color="blue.600" mt={20} mb={2} as="h3">
 								Equipment Damage
 							</Heading>
 
@@ -119,10 +119,10 @@ const CreatePost: React.FC<{}> = ({}) => {
 									</Box>
 								))
 							) : (
-								<Box>No Equipment Damaged</Box>
+								<Box>No equipment damaged selected</Box>
 							)}
 
-							<Heading mt={20} mb={2} as="h3">
+							<Heading color="blue.600" mt={20} mb={2} as="h3">
 								Incident Investigation
 							</Heading>
 
@@ -135,17 +135,19 @@ const CreatePost: React.FC<{}> = ({}) => {
 										key={question.name}
 										placeholder={question.placeholder}
 										required={question.required}
+										inputType={question.inputType}
 									/>
 								</Box>
 							))}
 
-							<Flex mt={8}>
+							<Flex mt={10}>
 								<Button
 									type="submit"
 									isLoading={isSubmitting}
 									bg="blue.600"
 									color="white"
 									margin="auto"
+									size="lg"
 								>
 									Post
 								</Button>
@@ -174,7 +176,6 @@ const incidentReportsInitialValues = {
 	fatiguePlanCompleted: "",
 	siteProceduresFollowed: "",
 	injuryNature: "",
-	injuryLocation: "",
 	injuryAgency: "",
 	stoppedWork: "",
 	treatmentRecieved: "",

@@ -9,6 +9,8 @@ import {
 	Heading,
 	Spacer,
 	Text,
+	SkeletonCircle,
+	SkeletonText,
 } from "@chakra-ui/react";
 import React from "react";
 import { BackButton } from "../../components/BackButton";
@@ -23,7 +25,10 @@ const IncidentReport = ({}) => {
 	if (loading) {
 		return (
 			<Layout>
-				<div>Loading...</div>
+				<Box padding="6" boxShadow="lg" bg="white">
+					<SkeletonCircle size="10" />
+					<SkeletonText mt="4" noOfLines={10} spacing="4" />
+				</Box>
 			</Layout>
 		);
 	}
@@ -51,7 +56,9 @@ const IncidentReport = ({}) => {
 	return (
 		<Layout>
 			<Flex>
-				<Heading mb={4}>{data?.IncidentReport?.title}</Heading>
+				<Heading color="blue.600" mb={4}>
+					{data?.IncidentReport?.title}
+				</Heading>
 				<Spacer />
 				<Box display="flex">
 					<EditDeleteReportButtons
@@ -67,10 +74,7 @@ const IncidentReport = ({}) => {
 				</Box>
 			</Flex>
 
-			<Text color="grey">
-				{/* Erro but onlly way could figure it out. all the libraries kept giving me errors. Something to do with the the fact aht it's a string */}
-				{date}
-			</Text>
+			<Text color="grey">{date}</Text>
 			<Text color="grey">{data?.IncidentReport.creator.username}</Text>
 			<br />
 			<Box mb={8}>
@@ -78,7 +82,7 @@ const IncidentReport = ({}) => {
 					<AccordionItem>
 						<AccordionButton>
 							<Box flex="1" textAlign="left">
-								<Heading as="h3" size="md">
+								<Heading as="h3" size="md" color="blue.500">
 									Incident Details
 								</Heading>
 							</Box>
@@ -118,7 +122,7 @@ const IncidentReport = ({}) => {
 					<AccordionItem>
 						<AccordionButton>
 							<Box flex="1" textAlign="left">
-								<Heading as="h3" size="md">
+								<Heading as="h3" size="md" color="blue.500">
 									Safety Checks
 								</Heading>
 							</Box>
@@ -150,7 +154,7 @@ const IncidentReport = ({}) => {
 					<AccordionItem>
 						<AccordionButton>
 							<Box flex="1" textAlign="left">
-								<Heading as="h3" size="md">
+								<Heading as="h3" size="md" color="blue.500">
 									Injury Details
 								</Heading>
 							</Box>
@@ -163,10 +167,6 @@ const IncidentReport = ({}) => {
 										<tr>
 											<td>Injury Nature</td>
 											<td>{data?.IncidentReport?.injuryNature}</td>
-										</tr>
-										<tr>
-											<td>Injury Location</td>
-											<td>{data?.IncidentReport?.injuryLocation}</td>
 										</tr>
 										<tr>
 											<td>Injury agency</td>
@@ -194,7 +194,7 @@ const IncidentReport = ({}) => {
 					<AccordionItem>
 						<AccordionButton>
 							<Box flex="1" textAlign="left">
-								<Heading as="h3" size="md">
+								<Heading color="blue.500" as="h3" size="md">
 									Equipment Damage
 								</Heading>
 							</Box>
@@ -226,7 +226,7 @@ const IncidentReport = ({}) => {
 					<AccordionItem>
 						<AccordionButton>
 							<Box flex="1" textAlign="left">
-								<Heading as="h3" size="md">
+								<Heading color="blue.500" as="h3" size="md">
 									Incident Investigation
 								</Heading>
 							</Box>
@@ -270,7 +270,7 @@ const IncidentReport = ({}) => {
 					<AccordionItem>
 						<AccordionButton>
 							<Box flex="1" textAlign="left">
-								<Heading as="h3" size="md">
+								<Heading color="blue.500" as="h3" size="md">
 									Review
 								</Heading>
 							</Box>
