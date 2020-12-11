@@ -18,8 +18,8 @@ To run in production:
 2. Run `docker-compose up` to start containers
 3. Navigate to [localhost:3000](http://localhost:3000) on browser
 
-Test username: admin
-Test password: admin
+Test username: test
+Test password: test
 
 ## Integration
 
@@ -58,6 +58,8 @@ Rules:
 
 - CSS menu folding not correct when in sm - md view.
 - server/src/types.ts: Session bug
+- Custom radio buttons do not resect when in edit mode
+- Formik touches all field as soon as you touch one, and red bars go around all required fields immediately. This shifts everything by 1px per field as well
 
 ## TODO
 
@@ -66,6 +68,7 @@ Rules:
 - Display review status
 - Login functionality
 - Add logo
+- NA option for radio inputs
 
 ## Optional features
 
@@ -78,6 +81,7 @@ Rules:
 - Print functionality
 - Search functionality
 - More precise pagination (at the moment, just a load more button comes up at bottom if needed)
+- Add images
 
 ## Product Road Map
 

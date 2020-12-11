@@ -8,39 +8,39 @@ import Redis from "ioredis";
 import "reflect-metadata";
 import { buildSchema } from "type-graphql";
 import { createConnection } from "typeorm";
-import { Post } from "./entities/Post";
 import { User } from "./entities/User";
 import { IncidentReport } from "./entities/IncidentReport";
-import { PostResolver } from "./resolvers/post";
 import { UserResolver } from "./resolvers/user";
 import path from "path";
 import { createUserLoader } from "./utils/createUserLoader";
 require("dotenv").config();
 
 const main = async () => {
+	// Setting up database and typeorm
 	const conn = await createConnection({
 		type: "postgres",
-		username: process.env.POSTGRES_USER || "camlemessurier",
-		password: process.env.POSTGRES_PASSWORD || "postgres",
-		database: process.env.POSTGRES_DB || "ga_cam",
+		username: process.env.POSTGRES_USER,
+		password: process.env.POSTGRES_PASSWORD,
+		database: process.env.POSTGRES_DB,
 		host: process.env.POSTGRES_HOST || undefined,
 		logging: true,
 		migrations: [path.join(__dirname, "./migrations/*")],
-		entities: [Post, User, IncidentReport],
+		entities: [User, IncidentReport],
 	});
-	conn.runMigrations();
+	conn.runMigrations(); // Running migration that haven't run yet
 
+	// Setting up express middleware
 	const app = express();
-	const RedisStore = connectRedis(session);
-
-	const redis = new Redis(process.env.REDIS_HOST || undefined); // swtich to redis for docker
-
 	app.use(
 		cors({
 			origin: true,
 			credentials: true,
 		})
 	);
+
+	// Setting up redis for cookie storage
+	const RedisStore = connectRedis(session);
+	const redis = new Redis(process.env.REDIS_HOST || undefined);
 
 	app.use(
 		session({
@@ -58,9 +58,10 @@ const main = async () => {
 		})
 	);
 
+	// Setting up Apollo server
 	const apolloServer = new ApolloServer({
 		schema: await buildSchema({
-			resolvers: [PostResolver, UserResolver, IncidentReportResolver],
+			resolvers: [UserResolver, IncidentReportResolver],
 			validate: false,
 		}),
 		context: ({ req, res }) => ({
@@ -77,7 +78,7 @@ const main = async () => {
 	});
 
 	app.listen(4000, () => {
-		console.log("Server on localhost:4000");
+		console.log("Server running at localhost:4000/graphql");
 	});
 };
 

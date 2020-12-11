@@ -8,7 +8,7 @@ import {
 	BaseEntity,
 	OneToMany,
 } from "typeorm";
-import { Post } from "./Post";
+import { IncidentReport } from "./IncidentReport";
 
 @ObjectType()
 @Entity()
@@ -28,8 +28,8 @@ export class User extends BaseEntity {
 	@Column()
 	password!: string;
 
-	@OneToMany(() => Post, (post) => post.creator)
-	posts: Post[];
+	@OneToMany(() => IncidentReport, (incidentReport) => incidentReport.creator)
+	incidentReports: IncidentReport[];
 
 	@Field(() => String)
 	@CreateDateColumn()

@@ -25,11 +25,11 @@ services:
   server:
     build: ./server
     environment:
-      - NODE_ENV=prod
       - POSTGRES_USER=user
       - POSTGRES_DB=postgresdb
       - POSTGRES_PASSWORD=password
       - POSTGRES_HOST=postgres
+      - NODE_ENV=prod
       - REDIS_HOST=redis
     ports:
       - 4000:4000
@@ -54,6 +54,8 @@ services:
       - /home/app/web/node_modules
     links:
       - server
+    environment:
+      - NODE_ENV=prod  
     command:  /bin/sh -c "yarn build && yarn start"
     depends_on:
       - redis

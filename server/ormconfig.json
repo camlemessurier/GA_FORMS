@@ -1,0 +1,9 @@
+{
+  "type": "postgres",
+  "port": 5432,
+  "username": "camlemessurier",
+  "password": "postgres",
+  "database": "GA_FORMS",
+  "entities": ["dist/entities/*.js"],
+  "migrations": ["dist/migrations/*.js"]
+}

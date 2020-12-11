@@ -30,7 +30,7 @@ export class IncidentReport extends BaseEntity {
 	creatorId: number;
 
 	@Field(() => User)
-	@ManyToOne(() => User, (user) => user.posts)
+	@ManyToOne(() => User, (user) => user.incidentReports)
 	creator: User;
 
 	@Field(() => String)
@@ -100,10 +100,6 @@ export class IncidentReport extends BaseEntity {
 	@Field((type) => String)
 	@Column({ nullable: true })
 	injuryNature: string;
-
-	@Field((type) => String)
-	@Column({ nullable: true })
-	injuryLocation: string;
 
 	@Field((type) => String)
 	@Column({ nullable: true })
