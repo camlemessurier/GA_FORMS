@@ -29,13 +29,14 @@ services:
       - POSTGRES_USER=user
       - POSTGRES_DB=postgresdb
       - POSTGRES_PASSWORD=password
-      - POSTGRES_HOST=localhost
+      - POSTGRES_HOST=postgres
+      - REDIS_HOST=redis
     ports:
       - 4000:4000
     volumes:
       - ./server:/home/app/server
       - /home/app/server/node_modules
-    command: yarn dev
+    command: yarn start
     links:
       - postgres
       - redis
@@ -53,7 +54,7 @@ services:
       - /home/app/web/node_modules
     links:
       - server
-    command: yarn dev
+    command:  /bin/sh -c "yarn build && yarn start"
     depends_on:
       - redis
       - postgres

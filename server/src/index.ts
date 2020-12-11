@@ -23,8 +23,7 @@ const main = async () => {
 		username: process.env.POSTGRES_USER || "camlemessurier",
 		password: process.env.POSTGRES_PASSWORD || "postgres",
 		database: process.env.POSTGRES_DB || "ga_cam",
-		//synchronize: true,
-		//host: "postgres",
+		host: process.env.POSTGRES_HOST || undefined,
 		logging: true,
 		migrations: [path.join(__dirname, "./migrations/*")],
 		entities: [Post, User, IncidentReport],
@@ -33,11 +32,12 @@ const main = async () => {
 
 	const app = express();
 	const RedisStore = connectRedis(session);
-	const redis = new Redis(); // swtich to redis for docker
+
+	const redis = new Redis(process.env.REDIS_HOST || undefined); // swtich to redis for docker
 
 	app.use(
 		cors({
-			origin: "http://localhost:3000",
+			origin: true,
 			credentials: true,
 		})
 	);
