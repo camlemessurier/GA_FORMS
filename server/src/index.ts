@@ -23,7 +23,7 @@ const main = async () => {
 		username: process.env.POSTGRES_USER || "camlemessurier",
 		password: process.env.POSTGRES_PASSWORD || "postgres",
 		database: process.env.POSTGRES_DB || "ga_cam",
-		synchronize: true,
+		//synchronize: true,
 		//host: "postgres",
 		logging: true,
 		migrations: [path.join(__dirname, "./migrations/*")],
@@ -37,7 +37,7 @@ const main = async () => {
 
 	app.use(
 		cors({
-			origin: "*",
+			origin: "http://localhost:3000",
 			credentials: true,
 		})
 	);
