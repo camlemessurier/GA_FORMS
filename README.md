@@ -1,6 +1,6 @@
 # Global Acoustics Forms
 
-Hi Lance, this is my first version of GA Forms. Sorry about my lack of communication, probably would have been best to have a chat with you before I started this, but anyway. Realise this probably uses some technology outside your normal stack, which I realise is going to be a pain if you ever need to made modifications, and maybe would have been better to build it with the existing GA accounts stack. Probably the most unfamiliar tech I imagine will be the graphql API.
+Hi Lance, this is my first version of GA Forms. Sorry about my lack of communication, probably would have been best to have a chat with you before I started this, but anyway. Realise this probably uses some technology outside your normal stack, which I Know is going to be a pain if you ever need to made modifications, and maybe would have been better to build it with the existing GA accounts stack. Probably the most unfamiliar tech I imagine will be the graphql API.
 
 If you think you think it's too much trouble, I could potentially convert it to a REST API, or even build it with whatever you use for GA accounts, although it might take me a while.
 
