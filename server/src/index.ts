@@ -15,7 +15,6 @@ import { PostResolver } from "./resolvers/post";
 import { UserResolver } from "./resolvers/user";
 import path from "path";
 import { createUserLoader } from "./utils/createUserLoader";
-import helmet from "helmet";
 require("dotenv").config();
 
 const main = async () => {
@@ -24,25 +23,22 @@ const main = async () => {
 		username: process.env.POSTGRES_USER || "camlemessurier",
 		password: process.env.POSTGRES_PASSWORD || "postgres",
 		database: process.env.POSTGRES_DB || "ga_cam",
-		host: "postgres",
+		synchronize: true,
+		//host: "postgres",
 		logging: true,
 		migrations: [path.join(__dirname, "./migrations/*")],
 		entities: [Post, User, IncidentReport],
-		cli: {
-			migrationsDir: "./src/migrations",
-		},
 	});
 	conn.runMigrations();
 
 	const app = express();
 	const RedisStore = connectRedis(session);
-	const redis = new Redis("redis");
+	const redis = new Redis(); // swtich to redis for docker
 
 	app.use(
 		cors({
 			origin: "*",
 			credentials: true,
-			allowedHeaders: "*",
 		})
 	);
 
@@ -62,8 +58,6 @@ const main = async () => {
 		})
 	);
 
-	//app.use(helmet());
-
 	const apolloServer = new ApolloServer({
 		schema: await buildSchema({
 			resolvers: [PostResolver, UserResolver, IncidentReportResolver],
@@ -79,6 +73,7 @@ const main = async () => {
 
 	apolloServer.applyMiddleware({
 		app,
+		cors: false,
 	});
 
 	app.listen(4000, () => {
