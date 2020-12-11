@@ -29,7 +29,7 @@ export class Initial1607584401227 implements MigrationInterface {
 			`ALTER TABLE "updoot" ADD CONSTRAINT "FK_fd6b77bfdf9eae6691170bc9cb5" FOREIGN KEY ("postId") REFERENCES "post"("id") ON DELETE CASCADE ON UPDATE NO ACTION`
 		);
 		await queryRunner.query(
-			`INSERT INTO user(username, email, password) VALUES ('admin', 'admin@admin.com', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918')`
+			`INSERT INTO "user" (username, email, password) VALUES ('test', 'test@test.com', '$argon2i$v=19$m=4096,t=3,p=1$t13gO6eV0zY9XYlIPYGlEw$518kuTo+KGoKhwMoOXaKHdk0wlwHI1axqeYwCa/Lr8E')`
 		);
 	}
 
